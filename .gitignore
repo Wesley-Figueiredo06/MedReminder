@@ -1,0 +1,55 @@
+# dependencies
+node_modules/
+
+# env files (SEGURANÇA)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs
+*.log
+
+# Expo / React Native
+.expo/
+.expo-shared/
+.expo-settings/
+dist/
+web-build/
+
+# Android
+android/.gradle/
+android/app/build/
+android/build/
+*.apk
+*.aab
+
+# iOS
+ios/Pods/
+ios/build/
+*.xcworkspace
+*.xcuserstate
+DerivedData/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/
+.idea/
+
+# metro
+.metro-health-check*
+
+# testing
+coverage/
+
+# misc
+*.pem
+*.key

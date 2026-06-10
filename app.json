@@ -1,0 +1,4 @@
+{
+  "plugins": ["expo-router", "expo-splash-screen"],
+  "orientation": "portrait"
+}
