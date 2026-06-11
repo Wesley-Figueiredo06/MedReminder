@@ -1,4 +1,18 @@
 {
-  "plugins": ["expo-router", "expo-splash-screen"],
-  "orientation": "portrait"
+  "plugins": [
+    "expo-router",
+    "expo-splash-screen"
+  ],
+  "orientation": "portrait",
+  "extra": {
+    "router": {},
+    "eas": {
+      "projectId": "5dd8c6a2-7396-4468-a5b7-aa206fdba7d4"
+    }
+  },
+  "expo": {
+    "android": {
+      "package": "com.cyrusf12.medreminder"
+    }
+  }
 }
