@@ -26,10 +26,12 @@ import { style } from "../assets/styles/style";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
   const [loading, setLoading] = useState(false);
-  const [focusedField, setFocusedField] = useState<"email" | "password" | null>(
-    null,
-  );
+  const [focusedField, setFocusedField] = useState<
+    "email" | "password" | "name" | null
+  >(null);
   const translateY = useSharedValue(0);
   const rotation = useSharedValue(0);
 
@@ -110,6 +112,27 @@ export default function Login() {
         </Text>
       </View>
 
+      <Text style={style.label}>Nome Completo</Text>
+
+      <View
+        style={[
+          style.inputContiner,
+          focusedField === "name" && style.inputFocused,
+        ]}
+      >
+        <TextInput
+          onFocus={() => setFocusedField("name")}
+          onBlur={() => setFocusedField(null)}
+          style={style.input}
+          placeholder="Como devemos te chamar?"
+          keyboardType="default"
+          autoCapitalize="none"
+          autoCorrect={false}
+          value={name}
+          onChangeText={setName}
+        />
+      </View>
+
       <Text style={style.label}>E-mail</Text>
 
       <View
@@ -170,7 +193,7 @@ export default function Login() {
           style={style.button}
           onPress={handleLogin}
         >
-          <Text style={{ color: "white" }}>Entrar</Text>
+          <Text style={{ color: "white" }}>Criar Conta</Text>
           <ArrowRight size={15} color="#fff" />
         </TouchableOpacity>
       </View>
@@ -183,10 +206,10 @@ export default function Login() {
           alignItems: "center",
         }}
       >
-        <Text>
-          Não tem uma conta?{" "}
-          <Link style={style.link} href="/register">
-            Cadastre-se
+        <Text style={{ flex: 1, top: 239 }}>
+          Já possui uma conta?{" "}
+          <Link style={style.link} href="/login">
+            Faça Login
           </Link>
         </Text>
       </View>

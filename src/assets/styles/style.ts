@@ -68,6 +68,6 @@ export const style = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: color.innerInputColor,
     borderColor: color.placeholderLoginColor,
-    borderWidth: 0.5,
+    borderWidth: 1,
   },
 });
