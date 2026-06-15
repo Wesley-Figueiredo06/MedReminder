@@ -5,106 +5,118 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from "react-native";
-import { useEffect, useState } from "react";
+
+import { Link, router } from "expo-router";
+
+import { useEffect, useState, useMemo } from "react";
+
 import { style } from "../assets/styles/styleHome";
+import {
+  Plus,
+  Calendar,
+  Settings,
+  ClipboardList,
+  Pill,
+  Bell,
+  LogOut,
+} from "lucide-react-native";
 
 export default function Home() {
-  const date = new Date();
+  const formattedDate = useMemo(() => {
+    const date = new Date();
+
+    return date.toLocaleDateString("pt-BR", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+    });
+  }, []);
+
+  function logoutClick() {
+    router.push("/login");
+  }
+
   return (
     <View style={style.conteiner}>
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        {/* header */}
+      {/* header */}
+
+      <View style={style.header}>
         <View>
-          <Text>Olá, Usuário!</Text>
-          <Text>{date.toDateString()}</Text>
+          <Text style={style.titleContent}>Olá, Usuário!</Text>
+          <Text>{formattedDate}</Text>
         </View>
-        <Text>exitIconsdasd</Text>
+        <TouchableOpacity onPress={logoutClick} style={style.logoutIcon}>
+          <LogOut />
+        </TouchableOpacity>
       </View>
+      {/* Cards */}
+
+      <View style={style.cards}>
+        <View style={style.cardBlue}>
+          <View style={style.bellIconConteiner}>
+            <Bell size={20} color="#588DFD" />
+          </View>
+          <Text style={{ fontWeight: "bold", fontSize: 25, color: "#1C398E" }}>
+            0
+          </Text>
+          <Text style={{ color: "#155DFC" }}>ATIVOS</Text>
+        </View>
+
+        <View style={style.cardGreen}>
+          <View style={style.pillIconConteiner}>
+            <Pill size={20} color="#0F9981" />
+          </View>
+
+          <Text style={{ fontWeight: "bold", fontSize: 25, color: "#004F3B" }}>
+            0
+          </Text>
+          <Text style={{ color: "#0F9981" }}>TOMADOS</Text>
+        </View>
+      </View>
+      {/* Checklist Medication */}
 
       <View>
-        <View
-          style={{
-            flexDirection: "row",
-            width: "auto",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <View
+        <View style={style.titleRow}>
+          <Text style={style.titleContent}>Próximas Doses</Text>
+          <Text style={{ color: "#A5A9CA" }}>Total: {`${"0"}`}</Text>
+        </View>
+
+        <View style={style.emptyBox}>
+          <ClipboardList size={35} />
+          <Text>Nenhum medicamento cadastrado ainda.</Text>
+        </View>
+      </View>
+      {/* footer */}
+
+      <View style={style.footer}>
+        <TouchableOpacity>
+          <View style={{ alignItems: "center" }}>
+            <Calendar color="#155DFC" />
+            <Text style={{ color: "#155DFC" }}>Hoje</Text>
+          </View>
+        </TouchableOpacity>
+
+        <View>
+          <TouchableOpacity
             style={{
-              width: 150,
-              height: 150,
-              alignItems: "flex-start",
-              justifyContent: "space-around",
-              backgroundColor: "#EFF6FF",
-              borderColor: "#DBEAFE",
-              borderWidth: 1,
-              borderRadius: 10,
-              padding: 20,
+              width: 45,
+              height: 45,
+              backgroundColor: "#155DFC",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 100,
             }}
           >
-            <Text>Icon</Text>
-            <Text>Reminder Count</Text>
-            <Text>Reminder Tag</Text>
+            <Plus color="white" />
+          </TouchableOpacity>
+        </View>
+
+        <TouchableOpacity>
+          <View style={{ alignItems: "center" }}>
+            <Settings color="#155DFC" />
+            <Text style={{ color: "#155DFC" }}>Ajustes</Text>
           </View>
-          <View
-            style={{
-              width: 150,
-              height: 150,
-              alignItems: "flex-start",
-              justifyContent: "space-around",
-              backgroundColor: "#ECFDF5",
-              borderColor: "#D0FAE5",
-              borderWidth: 1,
-              borderRadius: 10,
-              padding: 20,
-            }}
-          >
-            <Text>Icon</Text>
-            <Text>MedTaken Count</Text>
-            <Text>MedTaken Tag</Text>
-          </View>
-        </View>
-      </View>
-
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <Text>Próximas Doses</Text>
-        <Text>Total: {`${"Count Value"}`}</Text>
-      </View>
-
-      <View
-        style={{
-          width: 320,
-          height: 200,
-          alignItems: "center",
-          alignSelf: "center",
-          justifyContent: "space-around",
-          backgroundColor: "#F9FAFB",
-          borderColor: "#E5E7EB",
-          borderStyle: "dotted",
-          borderWidth: 1.5,
-          borderRadius: 10,
-          padding: 20,
-        }}
-      >
-        <Text>DeliveriIcon</Text>
-        <Text>Nenhum medicamento cadastrado ainda.</Text>
-      </View>
-
-      <View
-        style={{
-          flexDirection: "row",
-          width: "auto",
-          justifyContent: "space-between",
-        }}
-      >
-        <View>
-          <Text>ScheduleIcon</Text>
-          <Text>Hoje</Text>
-        </View>
-        <View>
-          <Text>SettingsIcon</Text>
-          <Text>Hoje</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );

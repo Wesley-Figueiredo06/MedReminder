@@ -78,6 +78,7 @@ export default function Login() {
       // console.log(data);
     } finally {
       setLoading(false);
+      router.push("home");
     }
   }
 
