@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TouchableOpacityProps,
 } from "react-native";
+
 import { useEffect, useState } from "react";
 
 import Animated, {

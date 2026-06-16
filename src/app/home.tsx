@@ -35,6 +35,9 @@ export default function Home() {
   function logoutClick() {
     router.push("/login");
   }
+  function addMedication() {
+    router.push("/addMedication");
+  }
 
   return (
     <View style={style.conteiner}>
@@ -106,6 +109,7 @@ export default function Home() {
               justifyContent: "center",
               borderRadius: 100,
             }}
+            onPress={addMedication}
           >
             <Plus color="white" />
           </TouchableOpacity>

@@ -14,6 +14,14 @@ export const style = StyleSheet.create({
     alignItems: "center",
     gap: 10,
   },
+
+  formConteiner: {
+    width: "100%",
+    flex: 1,
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+
   button: {
     height: 50,
     width: 300,
@@ -69,5 +77,8 @@ export const style = StyleSheet.create({
     backgroundColor: color.innerInputColor,
     borderColor: color.placeholderLoginColor,
     borderWidth: 1,
+  },
+  dropDownPickerStyle: {
+    width: 100,
   },
 });

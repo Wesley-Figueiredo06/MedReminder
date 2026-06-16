@@ -13,7 +13,7 @@ export const style = StyleSheet.create({
     flex: 1,
     backgroundColor: "white",
     justifyContent: "space-between",
-    paddingVertical: 40,
+    paddingVertical: 20,
   },
 
   titleContent: { fontWeight: "bold", fontSize: 20 },

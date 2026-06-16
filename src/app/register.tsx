@@ -207,7 +207,7 @@ export default function Login() {
         }}
       >
         <Text style={{ flex: 1, top: 239 }}>
-          Já possui uma conta?{" "}
+          Já possui uma conta?
           <Link style={style.link} href="/login">
             Faça Login
           </Link>
