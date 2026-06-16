@@ -8,8 +8,12 @@
     }
   },
   "expo": {
+    "name": "MedReminder",
+    "slug": "medreminder",
+    "version": "1.0.1",
     "android": {
-      "package": "com.cyrusf12.medreminder"
+      "package": "com.cyrusf12.medreminder",
+      "versionCode": 1
     }
   }
 }
