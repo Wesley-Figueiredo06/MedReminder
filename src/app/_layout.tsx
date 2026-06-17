@@ -1,5 +1,5 @@
 import { Stack } from "expo-router";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import * as ScreenOrientation from "expo-screen-orientation";
 import { useEffect } from "react";
 
@@ -10,11 +10,14 @@ export default function Layout() {
 
   return (
     <SafeAreaProvider>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-        }}
-      />
+      <SafeAreaView style={{ flex: 1 }}>
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            animation: "slide_from_right",
+          }}
+        />
+      </SafeAreaView>
     </SafeAreaProvider>
   );
 }

@@ -79,6 +79,7 @@ export const style = StyleSheet.create({
     borderWidth: 1,
   },
   dropDownPickerStyle: {
-    width: 100,
+    width: 150,
+    height: 50,
   },
 });

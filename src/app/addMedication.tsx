@@ -32,7 +32,7 @@ export default function NewMedication() {
   ]);
 
   function handleClick() {
-    router.push("/home");
+    router.replace("/home");
   }
   function handleTimeChange(value: string) {
     let numbers = value.replace(/\D/g, "");
@@ -73,7 +73,12 @@ export default function NewMedication() {
 
       <View style={{}}>
         <Text>Nome do Medicamento</Text>
-        <TextInput placeholder="Ex:Paracetamol" />
+        <TextInput placeholder="Ex: Paracetamol" />
+      </View>
+
+      <View style={{}}>
+        <Text>Dosagem</Text>
+        <TextInput placeholder="Ex: 500mg" />
       </View>
       <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
         <View>
@@ -100,17 +105,14 @@ export default function NewMedication() {
           />
         </View>
       </View>
+
       <View style={{}}>
         <Text>Nome do Medicamento</Text>
         <TextInput placeholder="Ex:Paracetamol" />
       </View>
       <View style={{}}>
-        <Text>Nome do Medicamento</Text>
-        <TextInput placeholder="Ex:Paracetamol" />
-      </View>
-      <View style={{}}>
-        <Text>Nome do Medicamento</Text>
-        <TextInput placeholder="Ex:Paracetamol" />
+        <Text>Observações (Opcional)</Text>
+        <TextInput placeholder="Ex: Tomar após as refeições" />
       </View>
 
       <View style={{}}>
