@@ -41,6 +41,9 @@ export default function NewMedication() {
   function handleClick() {
     router.replace("/home");
   }
+  function handleRedirect() {
+    router.navigate("/home");
+  }
 
   function handleDateChange(value: string) {
     let numbers = value.replace(/\D/g, "");
@@ -162,6 +165,11 @@ export default function NewMedication() {
             setOpen={setOpen}
             setValue={setValue}
             setItems={setItems}
+            showArrowIcon={false}
+            listMode="FLATLIST"
+            flatListProps={{
+              showsVerticalScrollIndicator: false,
+            }}
             placeholder="Selecione a frequência"
             style={[
               {
@@ -173,6 +181,13 @@ export default function NewMedication() {
                 borderWidth: 0.5,
               },
             ]}
+            dropDownContainerStyle={{
+              width: "90%",
+              borderRadius: 15,
+              backgroundColor: "#F9FAFB",
+              borderColor: "#99A1AF",
+              borderWidth: 0.5,
+            }}
           />
         </View>
 
@@ -294,6 +309,7 @@ export default function NewMedication() {
             backgroundColor: "#155DFC",
             borderRadius: 10,
           }}
+          onPress={handleRedirect}
         >
           <Text
             style={{
