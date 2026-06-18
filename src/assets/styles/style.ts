@@ -19,7 +19,8 @@ export const style = StyleSheet.create({
     width: "100%",
     flex: 1,
     justifyContent: "space-around",
-    alignItems: "center",
+    paddingLeft: 15,
+    backgroundColor: "white",
   },
 
   button: {
@@ -79,7 +80,17 @@ export const style = StyleSheet.create({
     borderWidth: 1,
   },
   dropDownPickerStyle: {
-    width: 150,
+    width: 180,
     height: 50,
+  },
+
+  inputNewMedication: {
+    width: "95%",
+    height: 60,
+    padding: 5,
+    borderRadius: 15,
+    backgroundColor: "#F9FAFB",
+    borderColor: "#99A1AF",
+    borderWidth: 0.5,
   },
 });
