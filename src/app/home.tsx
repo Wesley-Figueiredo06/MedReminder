@@ -3,7 +3,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  TouchableOpacityProps,
+  ScrollView,
 } from "react-native";
 
 import { Link, router } from "expo-router";
@@ -80,17 +80,22 @@ export default function Home() {
       </View>
       {/* Checklist Medication */}
 
-      <View>
-        <View style={style.titleRow}>
-          <Text style={style.titleContent}>Próximas Doses</Text>
-          <Text style={{ color: "#A5A9CA" }}>Total: {`${"0"}`}</Text>
-        </View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={[]}
+      >
+        <View>
+          <View style={style.titleRow}>
+            <Text style={style.titleContent}>Próximas Doses</Text>
+            <Text style={{ color: "#A5A9CA" }}>Total: {`${"0"}`}</Text>
+          </View>
 
-        <View style={style.emptyBox}>
-          <ClipboardList size={35} />
-          <Text>Nenhum medicamento cadastrado ainda.</Text>
+          <View style={style.emptyBox}>
+            <ClipboardList size={35} />
+            <Text>Nenhum medicamento cadastrado ainda.</Text>
+          </View>
         </View>
-      </View>
+      </ScrollView>
       {/* footer */}
 
       <View style={style.footer}>

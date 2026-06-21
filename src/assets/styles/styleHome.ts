@@ -23,6 +23,7 @@ export const style = StyleSheet.create({
     justifyContent: "space-between",
     paddingHorizontal: 10,
     paddingBottom: 10,
+    marginBottom: 25,
   },
 
   logoutIcon: {

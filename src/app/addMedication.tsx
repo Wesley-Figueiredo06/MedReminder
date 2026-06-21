@@ -1,17 +1,8 @@
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableOpacityProps,
-} from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { useState } from "react";
+import { router } from "expo-router";
 
-import { useEffect, useState } from "react";
-
-import DropDownPicker, {
-  DropDownPickerProps,
-} from "react-native-dropdown-picker";
-
+import DropDownPicker from "react-native-dropdown-picker";
 import {
   ArrowLeft,
   CircleAlert,
@@ -19,13 +10,12 @@ import {
   Pill,
   Calendar,
 } from "lucide-react-native";
-import { style } from "../assets/styles/style";
 
-import { router } from "expo-router";
+import { style } from "../assets/styles/style";
 
 export default function NewMedication() {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
 
@@ -167,7 +157,7 @@ export default function NewMedication() {
             setValue={setValue}
             setItems={setItems}
             showArrowIcon={false}
-            listMode="FLATLIST"
+            listMode="SCROLLVIEW"
             flatListProps={{
               showsVerticalScrollIndicator: false,
             }}
