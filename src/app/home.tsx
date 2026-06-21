@@ -33,12 +33,14 @@ export default function Home() {
   }, []);
 
   function logoutClick() {
-    router.push("/login");
+    router.replace("/login");
   }
   function addMedication() {
     router.push("/addMedication");
   }
-
+  function settings() {
+    router.push("/settings");
+  }
   return (
     <View style={style.conteiner}>
       {/* header */}
@@ -92,18 +94,18 @@ export default function Home() {
       {/* footer */}
 
       <View style={style.footer}>
-        <TouchableOpacity>
+        <View>
           <View style={{ alignItems: "center" }}>
             <Calendar color="#155DFC" />
             <Text style={{ color: "#155DFC" }}>Hoje</Text>
           </View>
-        </TouchableOpacity>
+        </View>
 
         <View>
           <TouchableOpacity
             style={{
-              width: 45,
-              height: 45,
+              width: 43,
+              height: 43,
               backgroundColor: "#155DFC",
               alignItems: "center",
               justifyContent: "center",
@@ -115,10 +117,10 @@ export default function Home() {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={settings}>
           <View style={{ alignItems: "center" }}>
-            <Settings color="#155DFC" />
-            <Text style={{ color: "#155DFC" }}>Ajustes</Text>
+            <Settings color="#6A7282" />
+            <Text style={{ color: "#6A7282" }}>Ajustes</Text>
           </View>
         </TouchableOpacity>
       </View>

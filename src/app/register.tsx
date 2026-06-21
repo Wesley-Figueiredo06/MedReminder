@@ -18,7 +18,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { router, Link } from "expo-router";
-import { supabase } from "../utils/supabase";
+import { supabase } from "../../supabase";
 
 import { ArrowRight, Heart, Mail, Lock, Eye } from "lucide-react-native";
 import { style } from "../assets/styles/style";

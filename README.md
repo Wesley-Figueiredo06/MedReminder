@@ -1,2 +1,3 @@
 # MedReminder
-App made with React Native (Expo Go)
+
+App made by React Native (Expo Go)

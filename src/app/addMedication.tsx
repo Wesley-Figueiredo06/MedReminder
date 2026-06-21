@@ -24,7 +24,7 @@ import { router } from "expo-router";
 
 export default function NewMedication() {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState("1x");
+  const [value, setValue] = useState(null);
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
 
@@ -42,7 +42,7 @@ export default function NewMedication() {
     router.replace("/home");
   }
   function handleRedirect() {
-    router.navigate("/home");
+    router.replace("/home");
   }
 
   function handleDateChange(value: string) {
