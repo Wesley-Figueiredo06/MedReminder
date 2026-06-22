@@ -21,7 +21,7 @@ import { router, Link } from "expo-router";
 import { supabase } from "../../supabase";
 
 import { ArrowRight, Heart, Mail, Lock, Eye } from "lucide-react-native";
-import { style } from "../assets/styles/style";
+import { style, color } from "../assets/styles/style";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -126,6 +126,7 @@ export default function Login() {
           style={style.input}
           placeholder="Como devemos te chamar?"
           keyboardType="default"
+          placeholderTextColor={color.placeholderLoginColor}
           autoCapitalize="none"
           autoCorrect={false}
           value={name}
@@ -152,6 +153,7 @@ export default function Login() {
           onBlur={() => setFocusedField(null)}
           style={style.input}
           placeholder="exemp@email.com"
+          placeholderTextColor={color.placeholderLoginColor}
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
@@ -182,6 +184,7 @@ export default function Login() {
           secureTextEntry={true}
           autoCapitalize="none"
           autoCorrect={false}
+          placeholderTextColor={color.placeholderLoginColor}
           value={password}
           onChangeText={setPassword}
         />

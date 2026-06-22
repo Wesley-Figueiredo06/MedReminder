@@ -22,7 +22,7 @@ import { router, Link } from "expo-router";
 import { supabase } from "../../supabase";
 
 import { ArrowRight, Heart, Mail, Lock, Eye } from "lucide-react-native";
-import { style } from "../assets/styles/style";
+import { style, color } from "../assets/styles/style";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -130,6 +130,7 @@ export default function Login() {
           onFocus={() => setFocusedField("email")}
           onBlur={() => setFocusedField(null)}
           style={style.input}
+          placeholderTextColor={color.placeholderLoginColor}
           placeholder="exemp@email.com"
           keyboardType="email-address"
           autoCapitalize="none"
@@ -158,6 +159,7 @@ export default function Login() {
           onBlur={() => setFocusedField(null)}
           style={style.input}
           placeholder="••••••••"
+          placeholderTextColor={color.placeholderLoginColor}
           secureTextEntry={true}
           autoCapitalize="none"
           autoCorrect={false}

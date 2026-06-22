@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  ScrollView,
-  Switch,
-} from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, Switch } from "react-native";
 
 import { router } from "expo-router";
 import { useEffect, useState, useMemo } from "react";
@@ -14,11 +6,9 @@ import { useEffect, useState, useMemo } from "react";
 import { color, styleStettings } from "../assets/styles/styleSettings";
 
 import {
-  Plus,
   Moon,
   Calendar,
   Settings,
-  ClipboardList,
   Pill,
   Bell,
   LogOut,
@@ -28,7 +18,6 @@ import {
   ChevronRight,
   User,
 } from "lucide-react-native";
-import { style } from "../assets/styles/style";
 import ModalCustom from "../components/Modal";
 
 export default function SettingsScreen() {

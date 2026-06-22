@@ -11,7 +11,7 @@ import {
   Calendar,
 } from "lucide-react-native";
 
-import { style } from "../assets/styles/style";
+import { style, color } from "../assets/styles/style";
 
 export default function NewMedication() {
   const [open, setOpen] = useState(false);
@@ -114,13 +114,20 @@ export default function NewMedication() {
           ]}
         >
           <Pill size={20} color="#99A1AF" />
-          <TextInput placeholder="Ex: Paracetamol" />
+          <TextInput
+            placeholderTextColor={color.placeholderLoginColor}
+            placeholder="Ex: Paracetamol"
+          />
         </View>
       </View>
 
       <View>
         <Text style={[style.label, { marginBottom: 5 }]}>Dosagem</Text>
-        <TextInput style={style.inputNewMedication} placeholder="Ex: 500mg" />
+        <TextInput
+          placeholderTextColor={color.placeholderLoginColor}
+          style={style.inputNewMedication}
+          placeholder="Ex: 500mg"
+        />
       </View>
 
       <View
@@ -199,6 +206,7 @@ export default function NewMedication() {
           </Text>
           <TextInput
             value={time}
+            placeholderTextColor={color.placeholderLoginColor}
             onChangeText={handleTimeChange}
             keyboardType="numeric"
             placeholder="08:00"
@@ -230,6 +238,7 @@ export default function NewMedication() {
           <Calendar size={20} color="#99A1AF" />
           <TextInput
             value={date}
+            placeholderTextColor={color.placeholderLoginColor}
             onChangeText={handleDateChange}
             maxLength={10}
             placeholder="dd/mm/yyyy"
@@ -252,7 +261,10 @@ export default function NewMedication() {
             borderWidth: 0.5,
           }}
         >
-          <TextInput placeholder="Ex: Tomar após as refeições" />
+          <TextInput
+            placeholderTextColor={color.placeholderLoginColor}
+            placeholder="Ex: Tomar após as refeições"
+          />
         </View>
       </View>
 

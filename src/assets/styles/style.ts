@@ -1,7 +1,7 @@
 import { Bold } from "lucide-react-native";
 import { StyleSheet } from "react-native";
 
-const color = {
+export const color = {
   primaryColor: "#155DFC",
   innerInputColor: "#F9FAFB",
   placeholderLoginColor: "#99A1AF",
