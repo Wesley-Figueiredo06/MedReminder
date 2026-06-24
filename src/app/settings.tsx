@@ -19,6 +19,7 @@ import {
   User,
 } from "lucide-react-native";
 import ModalCustom from "../components/Modal";
+import SettingsModal from "../components/SettingsModal";
 
 export default function SettingsScreen() {
   function logoutClick() {
@@ -29,7 +30,15 @@ export default function SettingsScreen() {
   }
   const [enableNotify, setEnabledNotify] = useState(false);
   const [enableDarkMode, setEnabledDarkMode] = useState(false);
-  const [visible, setVisible] = useState(false);
+  const [modalType, setModalType] = useState<
+    "Privacy" | "HelpCenter" | "FeedBack" | "About" | null
+  >(null);
+
+  const [logoutModal, setLogoutModal] = useState(false);
+
+  const [titleText, settitleText] = useState<
+    "Privacidade" | "Cental de Ajuda" | "Seu Feedback" | "Sobre o App" | null
+  >(null);
 
   return (
     <View style={styleStettings.conteiner}>
@@ -59,17 +68,6 @@ export default function SettingsScreen() {
             </TouchableOpacity>
           </View>
 
-          <ModalCustom
-            titleText="Privacidade"
-            visible={visible}
-            onClose={() => setVisible(false)}
-          >
-            <Text>PrivacidadeIcon</Text>
-            <Text>
-              Seus dados de saúde são criptografados e armazenados de forma
-              segura. Não compartilhamos suas informações com terceiros.
-            </Text>
-          </ModalCustom>
           {/* General */}
 
           <Text style={styleStettings.textLabelContent}>GERAL</Text>
@@ -110,7 +108,10 @@ export default function SettingsScreen() {
             </View>
 
             <TouchableOpacity
-              onPress={() => setVisible(true)}
+              onPress={() => {
+                setModalType("Privacy");
+                settitleText("Privacidade");
+              }}
               style={styleStettings.cards}
             >
               <View style={styleStettings.iconContainer}>
@@ -129,7 +130,13 @@ export default function SettingsScreen() {
           <Text style={styleStettings.textLabelContent}>AJUDA</Text>
 
           <View style={styleStettings.conteinerCard}>
-            <TouchableOpacity style={styleStettings.cards}>
+            <TouchableOpacity
+              onPress={() => {
+                setModalType("HelpCenter");
+                settitleText("Cental de Ajuda");
+              }}
+              style={styleStettings.cards}
+            >
               <View style={styleStettings.iconContainer}>
                 <CircleQuestionMark size={20} color={color.primaryIconColor} />
               </View>
@@ -141,7 +148,12 @@ export default function SettingsScreen() {
               <ChevronRight size={20} color={color.primaryIconColor} />
             </TouchableOpacity>
 
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setModalType("FeedBack");
+                settitleText("Seu Feedback");
+              }}
+            >
               <View style={[styleStettings.cards, styleStettings.cardsMiddle]}>
                 <View style={styleStettings.iconContainer}>
                   <MessageSquare size={20} color={color.primaryIconColor} />
@@ -153,12 +165,18 @@ export default function SettingsScreen() {
               </View>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styleStettings.cards}>
+            <TouchableOpacity
+              onPress={() => {
+                setModalType("About");
+                settitleText("Sobre o App");
+              }}
+              style={styleStettings.cards}
+            >
               <View style={styleStettings.iconContainer}>
                 <Pill size={20} color={color.primaryIconColor} />
               </View>
               <View style={styleStettings.labelAlign}>
-                <Text style={styleStettings.label}>Sobre o MedRedmind</Text>
+                <Text style={styleStettings.label}>Sobre o MedRemind</Text>
                 <Text style={styleStettings.textTitle}>v1.0.0</Text>
               </View>
               <ChevronRight size={20} color={color.primaryIconColor} />
@@ -170,7 +188,9 @@ export default function SettingsScreen() {
 
           <View style={styleStettings.conteinerCard}>
             <TouchableOpacity
-              onPress={logoutClick}
+              onPress={() => {
+                setLogoutModal(true);
+              }}
               style={styleStettings.cards}
             >
               <View style={styleStettings.iconContainerExg}>
@@ -186,7 +206,23 @@ export default function SettingsScreen() {
           </View>
         </View>
       </ScrollView>
+      <ModalCustom
+        titleText={titleText}
+        visible={modalType !== null}
+        onClose={() => setModalType(null)}
+      >
+        <SettingsModal type={modalType} />
+      </ModalCustom>
 
+      <ModalCustom
+        titleText={titleText}
+        visible={logoutModal}
+        onClose={() => setLogoutModal(false)}
+        buttonColor="#FB3039"
+        buttonText="Sair"
+      >
+        <Text>Tem certeza que deseja sair?</Text>
+      </ModalCustom>
       {/* footer */}
 
       <View style={styleStettings.footer}>

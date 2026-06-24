@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { View, Text, Modal, TouchableOpacity } from "react-native";
-import { style } from "../assets/styles/styleModal";
+import { View, Text, Modal, TouchableOpacity, StyleSheet } from "react-native";
 
 type props = {
   visible: boolean;
-  titleText: string;
+  titleText?: string | null;
   onClose: () => void;
   children: React.ReactNode;
+
+  buttonText?: string;
+  buttonColor?: string;
 };
 
 export default function ModalCustom({
@@ -14,6 +16,8 @@ export default function ModalCustom({
   onClose,
   titleText,
   children,
+  buttonText = "Entendi",
+  buttonColor = "#155DFC",
 }: props) {
   return (
     <Modal
@@ -22,25 +26,8 @@ export default function ModalCustom({
       animationType="fade"
       onRequestClose={onClose}
     >
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "rgba(0,0,0,0.6)",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <View
-          style={{
-            width: 350,
-            height: "auto",
-            maxHeight: 350,
-            backgroundColor: "white",
-            borderRadius: 20,
-            padding: 20,
-            gap: 10,
-          }}
-        >
+      <View style={style.modalbackgroundConteiner}>
+        <View style={style.modalConteiner}>
           <View
             style={{
               flexDirection: "row",
@@ -52,6 +39,7 @@ export default function ModalCustom({
               <Text>ExitButtom</Text>
             </TouchableOpacity>
           </View>
+
           {children}
 
           <TouchableOpacity
@@ -60,15 +48,33 @@ export default function ModalCustom({
               justifyContent: "center",
               width: "95%",
               height: 50,
-              backgroundColor: "#155DFC",
+              backgroundColor: buttonColor,
               borderRadius: 10,
             }}
             onPress={onClose}
           >
-            <Text style={{ color: "white" }}>Entendi</Text>
+            <Text style={{ color: "white" }}>{buttonText}</Text>
           </TouchableOpacity>
         </View>
       </View>
     </Modal>
   );
 }
+
+export const style = StyleSheet.create({
+  modalbackgroundConteiner: {
+    flex: 1,
+    backgroundColor: "rgba(0,0,0,0.6)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalConteiner: {
+    width: 350,
+    height: "auto",
+    maxHeight: 350,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 20,
+    gap: 10,
+  },
+});
