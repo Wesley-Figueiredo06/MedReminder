@@ -106,7 +106,7 @@ export default function Login() {
             <Heart color="white" size={40} fill="white" absoluteStrokeWidth />
           </View>
         </Animated.View>
-        <Text style={style.tittle}>MedRemind</Text>
+        <Text style={style.tittle}>MedReminder</Text>
         <Text style={style.paragraph}>
           Sua saúde em boas mãos, um lembrete por vez.
         </Text>
