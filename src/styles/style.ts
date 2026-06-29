@@ -1,10 +1,11 @@
 import { Bold } from "lucide-react-native";
 import { StyleSheet } from "react-native";
+import { colors as Colors } from "../constants/colors";
 
 export const color = {
-  primaryColor: "#155DFC",
-  innerInputColor: "#F9FAFB",
-  placeholderLoginColor: "#99A1AF",
+  primaryColor: Colors.primary,
+  innerInputColor: Colors.inputBackground,
+  placeholderLoginColor: Colors.placeholder,
 };
 
 export const style = StyleSheet.create({
@@ -89,8 +90,8 @@ export const style = StyleSheet.create({
     height: 60,
     padding: 5,
     borderRadius: 15,
-    backgroundColor: "#F9FAFB",
-    borderColor: "#99A1AF",
+    backgroundColor: Colors.inputBackground,
+    borderColor: Colors.placeholder,
     borderWidth: 0.5,
   },
 });

@@ -19,15 +19,17 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { router, Link } from "expo-router";
-import { supabase } from "../../supabase";
+import { supabase } from "../../lib/supabase";
+import { mockAuth } from "../mocks/auth";
 
 import { ArrowRight, Heart, Mail, Lock, Eye } from "lucide-react-native";
-import { style, color } from "../assets/styles/style";
+import { style, color } from "../styles/style";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [focusedField, setFocusedField] = useState<"email" | "password" | null>(
     null,
   );
@@ -72,14 +74,13 @@ export default function Login() {
 
   async function handleLogin() {
     setLoading(true);
+    setErrorMessage("");
     try {
-      // const { data, error } = await supabase
-      //   .from("users")
-      //   .select("email, password");
-      // console.log(data);
+      // Mock: autenticação real via Supabase ainda não conectada.
+      mockAuth.hasSession = true;
+      router.replace("/home");
     } finally {
       setLoading(false);
-      router.push("home");
     }
   }
 
@@ -167,6 +168,12 @@ export default function Login() {
           onChangeText={setPassword}
         />
       </View>
+
+      {errorMessage ? (
+        <Text style={{ color: "#E7000B", marginBottom: 10 }}>
+          {errorMessage}
+        </Text>
+      ) : null}
 
       <View>
         <TouchableOpacity

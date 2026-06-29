@@ -2,7 +2,6 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { router } from "expo-router";
 
-import DropDownPicker from "react-native-dropdown-picker";
 import {
   ArrowLeft,
   CircleAlert,
@@ -11,7 +10,8 @@ import {
   Calendar,
 } from "lucide-react-native";
 
-import { style, color } from "../assets/styles/style";
+import { style, color } from "../styles/style";
+import Dropdown from "../components/Dropdown";
 
 export default function NewMedication() {
   const [open, setOpen] = useState(false);
@@ -156,36 +156,11 @@ export default function NewMedication() {
             </Text>
           </View>
 
-          <DropDownPicker
-            open={open}
+          <Dropdown
             value={value}
-            items={items}
-            setOpen={setOpen}
             setValue={setValue}
-            setItems={setItems}
-            showArrowIcon={false}
-            listMode="SCROLLVIEW"
-            flatListProps={{
-              showsVerticalScrollIndicator: false,
-            }}
+            items={items}
             placeholder="Selecione a frequência"
-            style={[
-              {
-                width: "90%",
-                padding: 10,
-                borderRadius: 15,
-                backgroundColor: "#F9FAFB",
-                borderColor: "#99A1AF",
-                borderWidth: 0.5,
-              },
-            ]}
-            dropDownContainerStyle={{
-              width: "90%",
-              borderRadius: 15,
-              backgroundColor: "#F9FAFB",
-              borderColor: "#99A1AF",
-              borderWidth: 0.5,
-            }}
           />
         </View>
 

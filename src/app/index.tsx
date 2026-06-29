@@ -1,9 +1,12 @@
-import Login from "./login";
-import Home from "./home";
-import { router, Stack } from "expo-router";
-import NewMedication from "./addMedication";
-import SettingsScreen from "./settings";
+import { useEffect } from "react";
+import { router } from "expo-router";
+import { mockAuth } from "../mocks/auth";
 
 export default function Index() {
-  return <SettingsScreen />;
+  useEffect(() => {
+    // Mock: autenticação real via Supabase ainda não conectada.
+    router.replace(mockAuth.hasSession ? "/home" : "/login");
+  }, []);
+
+  return null;
 }

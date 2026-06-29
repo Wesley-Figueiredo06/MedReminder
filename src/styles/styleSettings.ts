@@ -1,13 +1,14 @@
 import { StyleSheet } from "react-native";
+import { colors as Colors } from "../constants/colors";
 
 export const color = {
-  primaryColor: "#155DFC",
-  innerInputColor: "#F9FAFB",
-  placeholderLoginColor: "#99A1AF",
-  bellBackground: "#EFF6FF",
-  shadowBellBackground: "#DBEAFE",
-  primaryIconColor: "#6A7282",
-  secondaryIconColor: "#155DFC",
+  primaryColor: Colors.primary,
+  innerInputColor: Colors.inputBackground,
+  placeholderLoginColor: Colors.placeholder,
+  bellBackground: Colors.infoBackground,
+  shadowBellBackground: Colors.infoBorder,
+  primaryIconColor: Colors.secondaryText,
+  secondaryIconColor: Colors.primary,
 };
 
 export const styleStettings = StyleSheet.create({
@@ -26,25 +27,25 @@ export const styleStettings = StyleSheet.create({
   },
 
   scrollViewConteinar: {
-    backgroundColor: "#F9FAFB",
+    backgroundColor: Colors.inputBackground,
     flex: 1,
     gap: 20,
     paddingBottom: 30,
     paddingTop: 15,
   },
 
-  iconContainer: { borderRadius: 10, padding: 10, backgroundColor: "#F3F4F6" },
+  iconContainer: { borderRadius: 10, padding: 10, backgroundColor: Colors.iconBackground },
 
   iconContainerUser: {
     borderRadius: 15,
     padding: 10,
-    backgroundColor: "#DBEAFE",
+    backgroundColor: Colors.infoBorder,
   },
 
   iconContainerExg: {
     borderRadius: 10,
     padding: 10,
-    backgroundColor: "#FEF2F2",
+    backgroundColor: Colors.dangerBackground,
   },
 
   labelAlign: { flex: 1, paddingLeft: 10 },
@@ -52,7 +53,7 @@ export const styleStettings = StyleSheet.create({
   titleContent: { fontWeight: "bold", fontSize: 20 },
 
   textTitle: {
-    color: "#6A7282",
+    color: Colors.secondaryText,
   },
 
   label: {
@@ -72,13 +73,13 @@ export const styleStettings = StyleSheet.create({
     borderRadius: 25,
     marginLeft: 10,
     marginRight: 10,
-    borderColor: "#99A1AF",
+    borderColor: Colors.placeholder,
     borderWidth: 0.4,
     marginBottom: 10,
   },
 
   conteinerUser: {
-    borderColor: "#99A1AF",
+    borderColor: Colors.placeholder,
     borderWidth: 0.4,
     margin: 10,
     padding: 10,
@@ -97,7 +98,7 @@ export const styleStettings = StyleSheet.create({
     padding: 15,
   },
   cardsMiddle: {
-    borderColor: "#99A1AF",
+    borderColor: Colors.placeholder,
     borderTopWidth: 0.2,
     borderBottomWidth: 0.2,
   },
@@ -113,7 +114,7 @@ export const styleStettings = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderTopWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: Colors.border,
     padding: 10,
   },
 });

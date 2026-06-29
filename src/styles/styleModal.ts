@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import { colors as Colors } from "../constants/colors";
 
 const color = {
-  primaryColor: "#155DFC",
-  innerInputColor: "#F9FAFB",
-  placeholderLoginColor: "#99A1AF",
+  primaryColor: Colors.primary,
+  innerInputColor: Colors.inputBackground,
+  placeholderLoginColor: Colors.placeholder,
 };
 
 export const style = StyleSheet.create({

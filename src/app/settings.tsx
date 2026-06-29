@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, ScrollView, Switch } from "react-native";
 import { router } from "expo-router";
 import { useEffect, useState, useMemo } from "react";
 
-import { color, styleStettings } from "../assets/styles/styleSettings";
+import { color, styleStettings } from "../styles/styleSettings";
 
 import {
   Moon,

@@ -18,10 +18,10 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { router, Link } from "expo-router";
-import { supabase } from "../../supabase";
+import { supabase } from "../../lib/supabase";
 
 import { ArrowRight, Heart, Mail, Lock, Eye } from "lucide-react-native";
-import { style, color } from "../assets/styles/style";
+import { style, color } from "../styles/style";
 
 export default function Login() {
   const [email, setEmail] = useState("");

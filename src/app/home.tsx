@@ -10,7 +10,7 @@ import { Link, router } from "expo-router";
 
 import { useEffect, useState, useMemo } from "react";
 
-import { style } from "../assets/styles/styleHome";
+import { style } from "../styles/styleHome";
 import {
   Plus,
   Calendar,

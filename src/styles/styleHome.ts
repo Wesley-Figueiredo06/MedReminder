@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
+import { colors as Colors } from "../constants/colors";
 
 const color = {
-  primaryColor: "#155DFC",
-  innerInputColor: "#F9FAFB",
-  placeholderLoginColor: "#99A1AF",
-  bellBackground: "#EFF6FF",
-  shadowBellBackground: "#DBEAFE",
+  primaryColor: Colors.primary,
+  innerInputColor: Colors.inputBackground,
+  placeholderLoginColor: Colors.placeholder,
+  bellBackground: Colors.infoBackground,
+  shadowBellBackground: Colors.infoBorder,
 };
 
 export const style = StyleSheet.create({
@@ -29,7 +30,7 @@ export const style = StyleSheet.create({
   logoutIcon: {
     borderRadius: 100,
     width: 40,
-    backgroundColor: "#F3F4F6",
+    backgroundColor: Colors.iconBackground,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -44,8 +45,8 @@ export const style = StyleSheet.create({
     height: 150,
     padding: 20,
     justifyContent: "space-around",
-    backgroundColor: "#EFF6FF",
-    borderColor: "#DBEAFE",
+    backgroundColor: Colors.infoBackground,
+    borderColor: Colors.infoBorder,
     borderWidth: 1,
     borderRadius: 10,
   },
@@ -55,8 +56,8 @@ export const style = StyleSheet.create({
     height: 150,
     padding: 20,
     justifyContent: "space-around",
-    backgroundColor: "#ECFDF5",
-    borderColor: "#D0FAE5",
+    backgroundColor: Colors.successBackground,
+    borderColor: Colors.successBorder,
     borderWidth: 1,
     borderRadius: 10,
   },
@@ -64,13 +65,13 @@ export const style = StyleSheet.create({
   bellIconConteiner: {
     width: 40,
     padding: 10,
-    backgroundColor: "#DBEAFE",
+    backgroundColor: Colors.infoBorder,
     borderRadius: 10,
   },
   pillIconConteiner: {
     width: 40,
     padding: 10,
-    backgroundColor: "#D0FAE5",
+    backgroundColor: Colors.successBorder,
     borderRadius: 10,
   },
 
@@ -88,8 +89,8 @@ export const style = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     justifyContent: "space-around",
-    backgroundColor: "#F9FAFB",
-    borderColor: "#E5E7EB",
+    backgroundColor: Colors.inputBackground,
+    borderColor: Colors.border,
     borderStyle: "dotted",
     borderWidth: 1.5,
     borderRadius: 10,
@@ -102,7 +103,7 @@ export const style = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     borderTopWidth: 1,
-    borderColor: "#E5E7EB",
+    borderColor: Colors.border,
     padding: 10,
   },
 });
