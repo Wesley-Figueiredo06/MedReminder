@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useState } from "react";
 import { router } from "expo-router";
 
@@ -10,8 +10,9 @@ import {
   Calendar,
 } from "lucide-react-native";
 
-import { style, color } from "../styles/style";
+import { style } from "../styles/style";
 import Dropdown from "../components/Dropdown";
+import TextField from "../components/TextField";
 
 export default function NewMedication() {
   const [open, setOpen] = useState(false);
@@ -103,32 +104,13 @@ export default function NewMedication() {
         <Text style={[style.label, { fontSize: 20 }]}>Novo Medicamento</Text>
       </View>
 
-      <View>
-        <Text style={[style.label, { marginBottom: 5 }]}>
-          Nome do Medicamento
-        </Text>
-        <View
-          style={[
-            style.inputNewMedication,
-            { flexDirection: "row", alignItems: "center", gap: 4 },
-          ]}
-        >
-          <Pill size={20} color="#99A1AF" />
-          <TextInput
-            placeholderTextColor={color.placeholderLoginColor}
-            placeholder="Ex: Paracetamol"
-          />
-        </View>
-      </View>
+      <TextField
+        label="Nome do Medicamento"
+        placeholder="Ex: Paracetamol"
+        icon={<Pill size={20} color="#99A1AF" />}
+      />
 
-      <View>
-        <Text style={[style.label, { marginBottom: 5 }]}>Dosagem</Text>
-        <TextInput
-          placeholderTextColor={color.placeholderLoginColor}
-          style={style.inputNewMedication}
-          placeholder="Ex: 500mg"
-        />
-      </View>
+      <TextField label="Dosagem" placeholder="Ex: 500mg" />
 
       <View
         style={{
@@ -166,78 +148,35 @@ export default function NewMedication() {
         </View>
 
         <View style={{ flex: 1 }}>
-          <Text
-            style={{
-              width: "auto",
-              marginBottom: 5,
-              fontWeight: "500",
-            }}
-          >
-            Horário Inicial
-          </Text>
-          <TextInput
+          <TextField
+            label="Horário Inicial"
             value={time}
-            placeholderTextColor={color.placeholderLoginColor}
             onChangeText={handleTimeChange}
-            keyboardType="numeric"
             placeholder="08:00"
+            keyboardType="numeric"
             maxLength={5}
-            style={{
-              height: 50,
-              padding: 10,
-              borderRadius: 15,
-              backgroundColor: "#F9FAFB",
-              borderColor: "#99A1AF",
-              borderWidth: 0.5,
-            }}
           />
         </View>
       </View>
 
-      <View>
-        <Text style={[style.label, { marginBottom: 5 }]}>Data de Início</Text>
-        <View
-          style={[
-            style.inputNewMedication,
-            { flexDirection: "row", alignItems: "center", gap: 4 },
-          ]}
-        >
-          <Calendar size={20} color="#99A1AF" />
-          <TextInput
-            value={date}
-            placeholderTextColor={color.placeholderLoginColor}
-            onChangeText={handleDateChange}
-            maxLength={10}
-            placeholder="dd/mm/yyyy"
-          />
-        </View>
-      </View>
+      <TextField
+        label="Data de Início"
+        value={date}
+        onChangeText={handleDateChange}
+        placeholder="dd/mm/yyyy"
+        maxLength={10}
+        icon={<Calendar size={20} color="#99A1AF" />}
+      />
 
-      <View>
-        <Text style={[style.label, { marginBottom: 5 }]}>
-          Observações (Opcional)
-        </Text>
-        <View
-          style={{
-            width: "95%",
-            height: 150,
-            padding: 10,
-            borderRadius: 15,
-            backgroundColor: "#F9FAFB",
-            borderColor: "#99A1AF",
-            borderWidth: 0.5,
-          }}
-        >
-          <TextInput
-            placeholderTextColor={color.placeholderLoginColor}
-            placeholder="Ex: Tomar após as refeições"
-          />
-        </View>
-      </View>
+      <TextField
+        label="Observações (Opcional)"
+        placeholder="Ex: Tomar após as refeições"
+        multiline
+      />
 
       <View
         style={{
-          width: "95%",
+          width: "100%",
           marginTop: 10,
           padding: 20,
           height: 80,
@@ -274,7 +213,7 @@ export default function NewMedication() {
           style={{
             alignItems: "center",
             justifyContent: "center",
-            width: "95%",
+            width: "100%",
             height: 50,
             backgroundColor: "#155DFC",
             borderRadius: 10,

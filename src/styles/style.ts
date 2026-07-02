@@ -20,7 +20,7 @@ export const style = StyleSheet.create({
     width: "100%",
     flex: 1,
     justifyContent: "space-around",
-    paddingLeft: 15,
+    paddingHorizontal: 15,
     backgroundColor: "white",
   },
 
