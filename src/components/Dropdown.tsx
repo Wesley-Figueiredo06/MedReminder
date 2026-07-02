@@ -1,28 +1,10 @@
 import { useState } from "react";
 import { Pressable, Text, View, ScrollView, StyleSheet } from "react-native";
 
-const style = StyleSheet.create({
-  dropdownButton: {
-    width: "90%",
-    padding: 10,
-    borderRadius: 15,
-    backgroundColor: "#F9FAFB",
-    borderColor: "#99A1AF",
-    borderWidth: 0.5,
-  },
-  dropdownList: {
-    width: "90%",
-    marginTop: 5,
-    maxHeight: 160,
-    borderRadius: 15,
-    backgroundColor: "#F9FAFB",
-    borderColor: "#99A1AF",
-    borderWidth: 0.5,
-  },
-  item: {
-    padding: 10,
-  },
-});
+const BUTTON_HEIGHT = 50;
+const LIST_TOP_OFFSET = 54;
+const LIST_MAX_HEIGHT = 200;
+const OVERLAY_SPREAD = -1000;
 
 export type DropdownItem = {
   label: string;
@@ -36,6 +18,55 @@ type DropdownProps = {
   placeholder?: string;
 };
 
+const style = StyleSheet.create({
+  container: {
+    position: "relative",
+    width: "100%",
+  },
+  button: {
+    height: BUTTON_HEIGHT,
+    paddingHorizontal: 10,
+    borderRadius: 15,
+    backgroundColor: "#F9FAFB",
+    borderColor: "#99A1AF",
+    borderWidth: 0.5,
+    justifyContent: "center",
+  },
+  placeholderText: {
+    color: "#99A1AF",
+  },
+  selectedText: {
+    color: "#111827",
+  },
+  overlay: {
+    position: "absolute",
+    top: OVERLAY_SPREAD,
+    left: OVERLAY_SPREAD,
+    right: OVERLAY_SPREAD,
+    bottom: OVERLAY_SPREAD,
+    zIndex: 15,
+  },
+  list: {
+    position: "absolute",
+    top: LIST_TOP_OFFSET,
+    left: 0,
+    right: 0,
+    zIndex: 20,
+    elevation: 6,
+    maxHeight: LIST_MAX_HEIGHT,
+    borderRadius: 15,
+    backgroundColor: "#F9FAFB",
+    borderColor: "#99A1AF",
+    borderWidth: 0.5,
+  },
+  item: {
+    padding: 10,
+  },
+  itemPressed: {
+    backgroundColor: "#F3F4F6",
+  },
+});
+
 export default function Dropdown({
   value,
   setValue,
@@ -47,27 +78,37 @@ export default function Dropdown({
   const selectedLabel = items.find((item) => item.value === value)?.label;
 
   return (
-    <>
-      <Pressable style={style.dropdownButton} onPress={() => setOpen(!open)}>
-        <Text>{selectedLabel || placeholder}</Text>
+    <View style={style.container}>
+      {open && (
+        <Pressable style={style.overlay} onPress={() => setOpen(false)} />
+      )}
+
+      <Pressable style={style.button} onPress={() => setOpen(!open)}>
+        <Text style={selectedLabel ? style.selectedText : style.placeholderText}>
+          {selectedLabel ?? placeholder}
+        </Text>
       </Pressable>
 
       {open && (
-        <ScrollView style={style.dropdownList} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          style={style.list}
+          nestedScrollEnabled
+          showsVerticalScrollIndicator={false}
+        >
           {items.map((item) => (
             <Pressable
               key={item.value}
-              style={style.item}
+              style={({ pressed }) => [style.item, pressed && style.itemPressed]}
               onPress={() => {
                 setValue(item.value);
                 setOpen(false);
               }}
             >
-              <Text>{item.label}</Text>
+              <Text style={style.selectedText}>{item.label}</Text>
             </Pressable>
           ))}
         </ScrollView>
       )}
-    </>
+    </View>
   );
 }

@@ -133,10 +133,11 @@ export default function NewMedication() {
       <View
         style={{
           flexDirection: "row",
-          width: "95%",
+          gap: 10,
+          zIndex: 10,
         }}
       >
-        <View style={{ width: "50%" }}>
+        <View style={{ flex: 1, zIndex: 10 }}>
           <View
             style={{
               width: "50%",
@@ -164,17 +165,12 @@ export default function NewMedication() {
           />
         </View>
 
-        <View
-          style={{
-            width: "50%",
-          }}
-        >
+        <View style={{ flex: 1 }}>
           <Text
             style={{
               width: "auto",
               marginBottom: 5,
               fontWeight: "500",
-              paddingLeft: 15,
             }}
           >
             Horário Inicial
@@ -186,18 +182,14 @@ export default function NewMedication() {
             keyboardType="numeric"
             placeholder="08:00"
             maxLength={5}
-            style={[
-              {
-                width: "95%",
-                height: 50,
-                padding: 10,
-                alignSelf: "flex-end",
-                borderRadius: 15,
-                backgroundColor: "#F9FAFB",
-                borderColor: "#99A1AF",
-                borderWidth: 0.5,
-              },
-            ]}
+            style={{
+              height: 50,
+              padding: 10,
+              borderRadius: 15,
+              backgroundColor: "#F9FAFB",
+              borderColor: "#99A1AF",
+              borderWidth: 0.5,
+            }}
           />
         </View>
       </View>
