@@ -19,8 +19,7 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { router, Link } from "expo-router";
-import { supabase } from "../../../lib/supabase";
-import { mockAuth } from "../../mocks/auth";
+import { mockAuth, validateMockCredentials } from "../../mocks/auth";
 import { ROUTES } from "../../constants";
 
 import { ArrowRight, Heart, Mail, Lock, Eye } from "lucide-react-native";
@@ -77,7 +76,13 @@ export default function Login() {
     setLoading(true);
     setErrorMessage("");
     try {
-      // Mock: autenticação real via Supabase ainda não conectada.
+      const isValid = validateMockCredentials(email, password);
+
+      if (!isValid) {
+        setErrorMessage("E-mail ou senha inválidos.");
+        return;
+      }
+
       mockAuth.hasSession = true;
       router.replace(ROUTES.home);
     } finally {
