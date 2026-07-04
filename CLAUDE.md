@@ -32,3 +32,14 @@ Supabase credentials are required at runtime, loaded via `EXPO_PUBLIC_SUPABASE_U
 - **Data layer**: Supabase is the backend (auth + data), but most screens currently use local `useState` only and do not yet read/write through Supabase — when wiring up persistence, follow the existing (commented-out) pattern in `login.tsx` (`supabase.from(...).select(...)`) rather than introducing a separate data-fetching library.
 - **Path alias**: `tsconfig.json` defines `@/*` → `./@src*`, but this alias does not currently match the actual `src/` directory name — relative imports (`../assets/styles/...`) are used throughout instead. Don't assume `@/` imports work without first fixing/verifying this alias.
 - **Localization**: UI copy is in Portuguese (pt-BR) throughout (labels, dates via `toLocaleDateString("pt-BR", ...)`). Keep new user-facing strings in Portuguese for consistency.
+
+## Commits
+
+Antes de commitar, analise o diff completo (`git diff --staged`) para entender exatamente o que mudou desde o último commit. A mensagem deve refletir apenas o que foi alterado naquele intervalo — sem mensagens genéricas como "update" ou "fix". Use o padrão `tipo: descrição curta` em inglês:
+- `feat:` nova funcionalidade
+- `fix:` correção de bug
+- `refactor:` mudança sem alterar comportamento
+- `style:` apenas estilo/formatação
+- `chore:` configuração, dependências, arquivos mortos
+
+Se o diff cobrir múltiplas mudanças distintas, sugira commits separados em vez de um único commit amplo.
