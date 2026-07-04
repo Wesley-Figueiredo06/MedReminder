@@ -10,7 +10,8 @@ import { Link, router } from "expo-router";
 
 import { useEffect, useState, useMemo } from "react";
 
-import { style } from "../styles/styleHome";
+import { style } from "../../styles/styleHome";
+import { ROUTES } from "../../constants";
 import {
   Plus,
   Calendar,
@@ -33,13 +34,13 @@ export default function Home() {
   }, []);
 
   function logoutClick() {
-    router.replace("/login");
+    router.replace(ROUTES.login);
   }
   function addMedication() {
-    router.push("/addMedication");
+    router.push(ROUTES.addMedication);
   }
   function settings() {
-    router.push("/settings");
+    router.push(ROUTES.settings);
   }
   return (
     <View style={style.conteiner}>

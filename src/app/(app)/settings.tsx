@@ -3,7 +3,8 @@ import { View, Text, TouchableOpacity, ScrollView, Switch } from "react-native";
 import { router } from "expo-router";
 import { useEffect, useState, useMemo } from "react";
 
-import { color, styleStettings } from "../styles/styleSettings";
+import { color, styleStettings } from "../../styles/styleSettings";
+import { ROUTES } from "../../constants";
 
 import {
   Moon,
@@ -18,15 +19,15 @@ import {
   ChevronRight,
   User,
 } from "lucide-react-native";
-import ModalCustom from "../components/Modal";
-import SettingsModal from "../components/SettingsModal";
+import ModalCustom from "../../components/Modal";
+import SettingsModal from "../../components/SettingsModal";
 
 export default function SettingsScreen() {
   function logoutClick() {
-    router.push("/login");
+    router.push(ROUTES.login);
   }
-  function HomeCick() {
-    router.replace("/home");
+  function handleHomeClick() {
+    router.replace(ROUTES.home);
   }
   const [enableNotify, setEnabledNotify] = useState(false);
   const [enableDarkMode, setEnabledDarkMode] = useState(false);
@@ -226,7 +227,7 @@ export default function SettingsScreen() {
       {/* footer */}
 
       <View style={styleStettings.footer}>
-        <TouchableOpacity onPress={HomeCick}>
+        <TouchableOpacity onPress={handleHomeClick}>
           <View style={{ alignItems: "center" }}>
             <Calendar color={color.primaryIconColor} />
             <Text style={{ color: color.primaryIconColor }}>Hoje</Text>

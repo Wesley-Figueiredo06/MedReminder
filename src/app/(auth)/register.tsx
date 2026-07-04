@@ -18,10 +18,11 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { router, Link } from "expo-router";
-import { supabase } from "../../lib/supabase";
+import { supabase } from "../../../lib/supabase";
+import { ROUTES } from "../../constants";
 
 import { ArrowRight, Heart, Mail, Lock, Eye } from "lucide-react-native";
-import { style, color } from "../styles/style";
+import { style, color } from "../../styles/style";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -211,7 +212,7 @@ export default function Login() {
       >
         <Text style={{ flex: 1, top: 239 }}>
           Já possui uma conta?
-          <Link style={style.link} href="/login">
+          <Link style={style.link} href={ROUTES.login}>
             Faça Login
           </Link>
         </Text>

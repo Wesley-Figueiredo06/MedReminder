@@ -10,9 +10,10 @@ import {
   Calendar,
 } from "lucide-react-native";
 
-import { style } from "../styles/style";
-import Dropdown from "../components/Dropdown";
-import TextField from "../components/TextField";
+import { style } from "../../styles/style";
+import Dropdown from "../../components/Dropdown";
+import TextField from "../../components/TextField";
+import { ROUTES } from "../../constants";
 
 export default function NewMedication() {
   const [open, setOpen] = useState(false);
@@ -30,11 +31,8 @@ export default function NewMedication() {
     { label: "A cada 12 horas", value: "12h" },
   ]);
 
-  function handleClick() {
-    router.replace("/home");
-  }
-  function handleRedirect() {
-    router.replace("/home");
+  function handleGoHome() {
+    router.replace(ROUTES.home);
   }
 
   function handleDateChange(value: string) {
@@ -97,7 +95,7 @@ export default function NewMedication() {
       >
         <TouchableOpacity
           style={{ padding: 8, backgroundColor: "#F9FAFB", borderRadius: 100 }}
-          onPress={handleClick}
+          onPress={handleGoHome}
         >
           <ArrowLeft />
         </TouchableOpacity>
@@ -218,7 +216,7 @@ export default function NewMedication() {
             backgroundColor: "#155DFC",
             borderRadius: 10,
           }}
-          onPress={handleRedirect}
+          onPress={handleGoHome}
         >
           <Text
             style={{
