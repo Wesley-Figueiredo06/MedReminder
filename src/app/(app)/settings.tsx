@@ -1,9 +1,10 @@
 import { View, Text, TouchableOpacity, ScrollView, Switch } from "react-native";
 
 import { router } from "expo-router";
-import { useEffect, useState, useMemo } from "react";
+import { useState } from "react";
 
-import { color, styleStettings } from "../../styles/styleSettings";
+import { color, styleSettings } from "../../styles/styleSettings";
+import { colors as Colors } from "../../constants/colors";
 import { ROUTES } from "../../constants";
 
 import {
@@ -19,34 +20,32 @@ import {
   ChevronRight,
   User,
 } from "lucide-react-native";
-import ModalCustom from "../../components/Modal";
-import SettingsModal from "../../components/SettingsModal";
+import PrivacyModal from "../../components/settings/PrivacyModal";
+import HelpCenterModal from "../../components/settings/HelpCenterModal";
+import FeedbackModal from "../../components/settings/FeedbackModal";
+import AboutModal from "../../components/settings/AboutModal";
+import LogoutModal from "../../components/settings/LogoutModal";
+
+type SettingsModalType = "privacy" | "help" | "feedback" | "about" | "logout";
 
 export default function SettingsScreen() {
-  function logoutClick() {
-    router.push(ROUTES.login);
-  }
   function handleHomeClick() {
     router.replace(ROUTES.home);
   }
+  function handleLogout() {
+    setActiveModal(null);
+    router.replace(ROUTES.login);
+  }
   const [enableNotify, setEnabledNotify] = useState(false);
   const [enableDarkMode, setEnabledDarkMode] = useState(false);
-  const [modalType, setModalType] = useState<
-    "Privacy" | "HelpCenter" | "FeedBack" | "About" | null
-  >(null);
-
-  const [logoutModal, setLogoutModal] = useState(false);
-
-  const [titleText, settitleText] = useState<
-    "Privacidade" | "Cental de Ajuda" | "Seu Feedback" | "Sobre o App" | null
-  >(null);
+  const [activeModal, setActiveModal] = useState<SettingsModalType | null>(null);
 
   return (
-    <View style={styleStettings.conteiner}>
+    <View style={styleSettings.container}>
       {/* header */}
-      <View style={styleStettings.header}>
+      <View style={styleSettings.header}>
         <View>
-          <Text style={styleStettings.titleContent}>Ajustes</Text>
+          <Text style={styleSettings.titleContent}>Ajustes</Text>
         </View>
       </View>
 
@@ -55,15 +54,15 @@ export default function SettingsScreen() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[]}
       >
-        <View style={styleStettings.scrollViewConteinar}>
-          <View style={styleStettings.conteinerUser}>
+        <View style={styleSettings.scrollViewContainer}>
+          <View style={styleSettings.containerUser}>
             <TouchableOpacity>
-              <View style={styleStettings.cardUser}>
-                <View style={styleStettings.iconContainerUser}>
+              <View style={styleSettings.cardUser}>
+                <View style={styleSettings.iconContainerUser}>
                   <User size={40} color={color.primaryColor} />
                 </View>
-                <View style={styleStettings.labelAlign}>
-                  <Text style={styleStettings.label}>Usuário</Text>
+                <View style={styleSettings.labelAlign}>
+                  <Text style={styleSettings.label}>Usuário</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -71,56 +70,53 @@ export default function SettingsScreen() {
 
           {/* General */}
 
-          <Text style={styleStettings.textLabelContent}>GERAL</Text>
-          <View style={styleStettings.conteinerCard}>
-            <View style={styleStettings.cards}>
-              <View style={styleStettings.iconContainer}>
+          <Text style={styleSettings.textLabelContent}>GERAL</Text>
+          <View style={styleSettings.containerCard}>
+            <View style={styleSettings.cards}>
+              <View style={styleSettings.iconContainer}>
                 <Bell size={20} color={color.primaryIconColor} />
               </View>
 
-              <View style={styleStettings.labelAlign}>
-                <Text style={styleStettings.label}>Notificações</Text>
-                <Text style={styleStettings.textTitle}>
+              <View style={styleSettings.labelAlign}>
+                <Text style={styleSettings.label}>Notificações</Text>
+                <Text style={styleSettings.textTitle}>
                   Lembretes de doses e recargas
                 </Text>
               </View>
               <Switch
                 value={enableNotify}
                 onValueChange={setEnabledNotify}
-                trackColor={{ false: "#E5E7EB", true: "#155DFC" }}
-                thumbColor="#FFFFFF"
+                trackColor={{ false: Colors.border, true: color.primaryColor }}
+                thumbColor={Colors.white}
               />
             </View>
-            <View style={[styleStettings.cards, styleStettings.cardsMiddle]}>
-              <View style={styleStettings.iconContainer}>
+            <View style={[styleSettings.cards, styleSettings.cardsMiddle]}>
+              <View style={styleSettings.iconContainer}>
                 <Moon size={20} color={color.primaryIconColor} />
               </View>
 
-              <View style={styleStettings.labelAlign}>
-                <Text style={styleStettings.label}>Modo Noturno</Text>
+              <View style={styleSettings.labelAlign}>
+                <Text style={styleSettings.label}>Modo Noturno</Text>
               </View>
 
               <Switch
                 value={enableDarkMode}
                 onValueChange={setEnabledDarkMode}
-                trackColor={{ false: "#E5E7EB", true: "#155DFC" }}
-                thumbColor="#FFFFFF"
+                trackColor={{ false: Colors.border, true: color.primaryColor }}
+                thumbColor={Colors.white}
               />
             </View>
 
             <TouchableOpacity
-              onPress={() => {
-                setModalType("Privacy");
-                settitleText("Privacidade");
-              }}
-              style={styleStettings.cards}
+              onPress={() => setActiveModal("privacy")}
+              style={styleSettings.cards}
             >
-              <View style={styleStettings.iconContainer}>
+              <View style={styleSettings.iconContainer}>
                 <Shield size={20} color={color.primaryIconColor} />
               </View>
 
-              <View style={styleStettings.labelAlign}>
-                <Text style={styleStettings.label}>Privacidade</Text>
+              <View style={styleSettings.labelAlign}>
+                <Text style={styleSettings.label}>Privacidade</Text>
               </View>
 
               <ChevronRight size={20} color={color.primaryIconColor} />
@@ -128,114 +124,103 @@ export default function SettingsScreen() {
           </View>
 
           {/* Help*/}
-          <Text style={styleStettings.textLabelContent}>AJUDA</Text>
+          <Text style={styleSettings.textLabelContent}>AJUDA</Text>
 
-          <View style={styleStettings.conteinerCard}>
+          <View style={styleSettings.containerCard}>
             <TouchableOpacity
-              onPress={() => {
-                setModalType("HelpCenter");
-                settitleText("Cental de Ajuda");
-              }}
-              style={styleStettings.cards}
+              onPress={() => setActiveModal("help")}
+              style={styleSettings.cards}
             >
-              <View style={styleStettings.iconContainer}>
+              <View style={styleSettings.iconContainer}>
                 <CircleQuestionMark size={20} color={color.primaryIconColor} />
               </View>
 
-              <View style={styleStettings.labelAlign}>
-                <Text style={styleStettings.label}>Central de ajuda</Text>
+              <View style={styleSettings.labelAlign}>
+                <Text style={styleSettings.label}>Central de ajuda</Text>
               </View>
 
               <ChevronRight size={20} color={color.primaryIconColor} />
             </TouchableOpacity>
 
-            <TouchableOpacity
-              onPress={() => {
-                setModalType("FeedBack");
-                settitleText("Seu Feedback");
-              }}
-            >
-              <View style={[styleStettings.cards, styleStettings.cardsMiddle]}>
-                <View style={styleStettings.iconContainer}>
+            <TouchableOpacity onPress={() => setActiveModal("feedback")}>
+              <View style={[styleSettings.cards, styleSettings.cardsMiddle]}>
+                <View style={styleSettings.iconContainer}>
                   <MessageSquare size={20} color={color.primaryIconColor} />
                 </View>
-                <View style={styleStettings.labelAlign}>
-                  <Text style={styleStettings.label}>FeedBack</Text>
+                <View style={styleSettings.labelAlign}>
+                  <Text style={styleSettings.label}>FeedBack</Text>
                 </View>
                 <ChevronRight size={20} color={color.primaryIconColor} />
               </View>
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => {
-                setModalType("About");
-                settitleText("Sobre o App");
-              }}
-              style={styleStettings.cards}
+              onPress={() => setActiveModal("about")}
+              style={styleSettings.cards}
             >
-              <View style={styleStettings.iconContainer}>
+              <View style={styleSettings.iconContainer}>
                 <Pill size={20} color={color.primaryIconColor} />
               </View>
-              <View style={styleStettings.labelAlign}>
-                <Text style={styleStettings.label}>Sobre o MedRemind</Text>
-                <Text style={styleStettings.textTitle}>v1.0.0</Text>
+              <View style={styleSettings.labelAlign}>
+                <Text style={styleSettings.label}>Sobre o MedRemind</Text>
+                <Text style={styleSettings.textTitle}>v1.0.0</Text>
               </View>
               <ChevronRight size={20} color={color.primaryIconColor} />
             </TouchableOpacity>
           </View>
 
           {/* Account*/}
-          <Text style={styleStettings.textLabelContent}>CONTA</Text>
+          <Text style={styleSettings.textLabelContent}>CONTA</Text>
 
-          <View style={styleStettings.conteinerCard}>
+          <View style={styleSettings.containerCard}>
             <TouchableOpacity
-              onPress={() => {
-                setLogoutModal(true);
-              }}
-              style={styleStettings.cards}
+              onPress={() => setActiveModal("logout")}
+              style={styleSettings.cards}
             >
-              <View style={styleStettings.iconContainerExg}>
-                <LogOut size={20} color="#FB3039" />
+              <View style={styleSettings.iconContainerDanger}>
+                <LogOut size={20} color={color.dangerColor} />
               </View>
 
-              <View style={styleStettings.labelAlign}>
-                <Text style={{ color: "#FB3039", fontWeight: "600" }}>
-                  Sair da Conta
-                </Text>
+              <View style={styleSettings.labelAlign}>
+                <Text style={styleSettings.logoutText}>Sair da Conta</Text>
               </View>
             </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
-      <ModalCustom
-        titleText={titleText}
-        visible={modalType !== null}
-        onClose={() => setModalType(null)}
-      >
-        <SettingsModal type={modalType} />
-      </ModalCustom>
-
-      <ModalCustom
-        titleText={titleText}
-        visible={logoutModal}
-        onClose={() => setLogoutModal(false)}
-        buttonColor="#FB3039"
-        buttonText="Sair"
-      >
-        <Text>Tem certeza que deseja sair?</Text>
-      </ModalCustom>
+      <PrivacyModal
+        visible={activeModal === "privacy"}
+        onClose={() => setActiveModal(null)}
+      />
+      <HelpCenterModal
+        visible={activeModal === "help"}
+        onClose={() => setActiveModal(null)}
+      />
+      <FeedbackModal
+        visible={activeModal === "feedback"}
+        onClose={() => setActiveModal(null)}
+      />
+      <AboutModal
+        visible={activeModal === "about"}
+        onClose={() => setActiveModal(null)}
+      />
+      <LogoutModal
+        visible={activeModal === "logout"}
+        onClose={() => setActiveModal(null)}
+        onConfirm={handleLogout}
+      />
       {/* footer */}
 
-      <View style={styleStettings.footer}>
+      <View style={styleSettings.footer}>
         <TouchableOpacity onPress={handleHomeClick}>
-          <View style={{ alignItems: "center" }}>
+          <View style={styleSettings.footerItem}>
             <Calendar color={color.primaryIconColor} />
             <Text style={{ color: color.primaryIconColor }}>Hoje</Text>
           </View>
         </TouchableOpacity>
 
         <View>
-          <View style={{ alignItems: "center" }}>
+          <View style={styleSettings.footerItem}>
             <Settings color={color.secondaryIconColor} />
             <Text style={{ color: color.secondaryIconColor }}>Ajustes</Text>
           </View>

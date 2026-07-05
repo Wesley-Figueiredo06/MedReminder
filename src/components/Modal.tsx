@@ -1,80 +1,55 @@
-import React, { useState } from "react";
-import { View, Text, Modal, TouchableOpacity, StyleSheet } from "react-native";
+import React from "react";
+import { View, Text, Modal as RNModal, TouchableOpacity, StyleSheet } from "react-native";
+import { X } from "lucide-react-native";
+import { color } from "../styles/styleSettings";
 
-type props = {
+type Props = {
   visible: boolean;
-  titleText?: string | null;
+  title: string;
   onClose: () => void;
   children: React.ReactNode;
-
-  buttonText?: string;
-  buttonColor?: string;
 };
 
-export default function ModalCustom({
-  visible,
-  onClose,
-  titleText,
-  children,
-  buttonText = "Entendi",
-  buttonColor = "#155DFC",
-}: props) {
+export default function Modal({ visible, title, onClose, children }: Props) {
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={onClose}
-    >
-      <View style={style.modalbackgroundConteiner}>
-        <View style={style.modalConteiner}>
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-            }}
-          >
-            <Text>{titleText}</Text>
+    <RNModal visible={visible} transparent animationType="fade" onRequestClose={onClose}>
+      <View style={styles.overlay}>
+        <View style={styles.card}>
+          <View style={styles.header}>
+            <Text style={styles.title}>{title}</Text>
             <TouchableOpacity onPress={onClose}>
-              <Text>ExitButtom</Text>
+              <X size={22} color={color.primaryIconColor} />
             </TouchableOpacity>
           </View>
-
           {children}
-
-          <TouchableOpacity
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              width: "95%",
-              height: 50,
-              backgroundColor: buttonColor,
-              borderRadius: 10,
-            }}
-            onPress={onClose}
-          >
-            <Text style={{ color: "white" }}>{buttonText}</Text>
-          </TouchableOpacity>
         </View>
       </View>
-    </Modal>
+    </RNModal>
   );
 }
 
-export const style = StyleSheet.create({
-  modalbackgroundConteiner: {
+const styles = StyleSheet.create({
+  overlay: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.6)",
     justifyContent: "center",
     alignItems: "center",
   },
-  modalConteiner: {
-    width: 350,
-    height: "auto",
-    maxHeight: 350,
+  card: {
+    width: "90%",
+    maxWidth: 350,
     backgroundColor: "white",
     borderRadius: 20,
     padding: 20,
-    gap: 10,
+    gap: 16,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

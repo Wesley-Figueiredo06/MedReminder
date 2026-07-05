@@ -9,10 +9,11 @@ export const color = {
   shadowBellBackground: Colors.infoBorder,
   primaryIconColor: Colors.secondaryText,
   secondaryIconColor: Colors.primary,
+  dangerColor: Colors.danger,
 };
 
-export const styleStettings = StyleSheet.create({
-  conteiner: {
+export const styleSettings = StyleSheet.create({
+  container: {
     flex: 1,
     backgroundColor: "white",
     justifyContent: "space-between",
@@ -26,7 +27,7 @@ export const styleStettings = StyleSheet.create({
     borderBottomWidth: 0.3,
   },
 
-  scrollViewConteinar: {
+  scrollViewContainer: {
     backgroundColor: Colors.inputBackground,
     flex: 1,
     gap: 20,
@@ -42,7 +43,7 @@ export const styleStettings = StyleSheet.create({
     backgroundColor: Colors.infoBorder,
   },
 
-  iconContainerExg: {
+  iconContainerDanger: {
     borderRadius: 10,
     padding: 10,
     backgroundColor: Colors.dangerBackground,
@@ -68,7 +69,7 @@ export const styleStettings = StyleSheet.create({
     fontWeight: "600",
   },
 
-  conteinerCard: {
+  containerCard: {
     backgroundColor: "white",
     borderRadius: 25,
     marginLeft: 10,
@@ -78,7 +79,7 @@ export const styleStettings = StyleSheet.create({
     marginBottom: 10,
   },
 
-  conteinerUser: {
+  containerUser: {
     borderColor: Colors.placeholder,
     borderWidth: 0.4,
     margin: 10,
@@ -116,5 +117,12 @@ export const styleStettings = StyleSheet.create({
     borderTopWidth: 1,
     borderColor: Colors.border,
     padding: 10,
+  },
+  footerItem: {
+    alignItems: "center",
+  },
+  logoutText: {
+    color: color.dangerColor,
+    fontWeight: "600",
   },
 });
