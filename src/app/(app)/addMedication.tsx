@@ -10,12 +10,17 @@ import {
   Calendar,
 } from "lucide-react-native";
 
-import { style } from "../../styles/style";
+import { createAuthStyles } from "../../styles/style";
+import { useThemedStyles } from "../../hooks/useThemedStyles";
+import { useTheme } from "../../contexts/ThemeContext";
 import Dropdown from "../../components/Dropdown";
 import TextField from "../../components/TextField";
 import { ROUTES } from "../../constants";
 
 export default function NewMedication() {
+  const style = useThemedStyles(createAuthStyles);
+  const { colors } = useTheme();
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
   const [time, setTime] = useState("");
@@ -84,57 +89,26 @@ export default function NewMedication() {
 
   return (
     <View style={style.formConteiner}>
-      <View
-        style={{
-          width: "100%",
-          flexDirection: "row",
-          gap: 15,
-          alignItems: "center",
-          marginBottom: 30,
-        }}
-      >
-        <TouchableOpacity
-          style={{ padding: 8, backgroundColor: "#F9FAFB", borderRadius: 100 }}
-          onPress={handleGoHome}
-        >
-          <ArrowLeft />
+      <View style={style.headerRow}>
+        <TouchableOpacity style={style.backButton} onPress={handleGoHome}>
+          <ArrowLeft color={colors.textPrimary} />
         </TouchableOpacity>
-        <Text style={[style.label, { fontSize: 20 }]}>Novo Medicamento</Text>
+        <Text style={style.sectionTitle}>Novo Medicamento</Text>
       </View>
 
       <TextField
         label="Nome do Medicamento"
         placeholder="Ex: Paracetamol"
-        icon={<Pill size={20} color="#99A1AF" />}
+        icon={<Pill size={20} color={colors.placeholder} />}
       />
 
       <TextField label="Dosagem" placeholder="Ex: 500mg" />
 
-      <View
-        style={{
-          flexDirection: "row",
-          gap: 10,
-          zIndex: 10,
-        }}
-      >
-        <View style={{ flex: 1, zIndex: 10 }}>
-          <View
-            style={{
-              width: "50%",
-              flexDirection: "row",
-              gap: 5,
-            }}
-          >
-            <Clock style={{ top: 2 }} size={15} />
-            <Text
-              style={{
-                width: "auto",
-                marginBottom: 5,
-                fontWeight: "500",
-              }}
-            >
-              Frequência
-            </Text>
+      <View style={style.fieldRow}>
+        <View style={style.fieldRowItem}>
+          <View style={style.frequencyLabelRow}>
+            <Clock style={style.frequencyIcon} size={15} color={colors.textPrimary} />
+            <Text style={style.frequencyLabelText}>Frequência</Text>
           </View>
 
           <Dropdown
@@ -163,7 +137,7 @@ export default function NewMedication() {
         onChangeText={handleDateChange}
         placeholder="dd/mm/yyyy"
         maxLength={10}
-        icon={<Calendar size={20} color="#99A1AF" />}
+        icon={<Calendar size={20} color={colors.placeholder} />}
       />
 
       <TextField
@@ -172,61 +146,20 @@ export default function NewMedication() {
         multiline
       />
 
-      <View
-        style={{
-          width: "100%",
-          marginTop: 10,
-          padding: 20,
-          height: 80,
-          backgroundColor: "#EFF6FF",
-          borderColor: "#DBEAFE",
-          borderRadius: 15,
-          borderWidth: 1,
-          marginBottom: 70,
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: 10,
-        }}
-      >
-        <View
-          style={{
-            bottom: 10,
-            alignSelf: "flex-start",
-            paddingLeft: 10,
-            paddingTop: 20,
-          }}
-        >
-          <CircleAlert size={20} color="#193CB8" />
+      <View style={style.infoBox}>
+        <View style={style.infoIconWrapper}>
+          <CircleAlert size={20} color={colors.infoText} />
         </View>
 
-        <Text style={{ color: "#193CB8", fontSize: 13 }}>
+        <Text style={style.infoText}>
           Certifique-se de seguir as orientações médicas. Este aplicativo é
           apenas uma ferramenta de auxílio.
         </Text>
       </View>
 
-      <View style={{ width: "100%", marginBottom: 10 }}>
-        <TouchableOpacity
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            width: "100%",
-            height: 50,
-            backgroundColor: "#155DFC",
-            borderRadius: 10,
-          }}
-          onPress={handleGoHome}
-        >
-          <Text
-            style={{
-              fontWeight: "bold",
-              color: "white",
-              fontSize: 20,
-            }}
-          >
-            Salvar Medicamento
-          </Text>
+      <View style={style.saveButtonWrapper}>
+        <TouchableOpacity style={style.saveButton} onPress={handleGoHome}>
+          <Text style={style.saveButtonText}>Salvar Medicamento</Text>
         </TouchableOpacity>
       </View>
     </View>

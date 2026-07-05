@@ -22,9 +22,14 @@ import { supabase } from "../../../lib/supabase";
 import { ROUTES } from "../../constants";
 
 import { ArrowRight, Heart, Mail, Lock, Eye } from "lucide-react-native";
-import { style, color } from "../../styles/style";
+import { createAuthStyles } from "../../styles/style";
+import { useThemedStyles } from "../../hooks/useThemedStyles";
+import { useTheme } from "../../contexts/ThemeContext";
 
-export default function Login() {
+export default function Register() {
+  const style = useThemedStyles(createAuthStyles);
+  const { colors } = useTheme();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -94,17 +99,8 @@ export default function Login() {
         }}
       >
         <Animated.View style={animatedStyle}>
-          <View
-            style={{
-              width: 80,
-              height: 80,
-              backgroundColor: "#155DFC",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 20,
-            }}
-          >
-            <Heart color="white" size={40} fill="white" absoluteStrokeWidth />
+          <View style={style.logoContainer}>
+            <Heart color={colors.white} size={40} fill={colors.white} absoluteStrokeWidth />
           </View>
         </Animated.View>
         <Text style={style.tittle}>MedRemind</Text>
@@ -127,7 +123,7 @@ export default function Login() {
           style={style.input}
           placeholder="Como devemos te chamar?"
           keyboardType="default"
-          placeholderTextColor={color.placeholderLoginColor}
+          placeholderTextColor={colors.placeholder}
           autoCapitalize="none"
           autoCorrect={false}
           value={name}
@@ -146,7 +142,7 @@ export default function Login() {
         <Mail
           style={style.icon}
           size={20}
-          color={focusedField === "email" ? "#155DFC" : "#99A1AF"}
+          color={focusedField === "email" ? colors.primaryAccent : colors.placeholder}
         />
 
         <TextInput
@@ -154,7 +150,7 @@ export default function Login() {
           onBlur={() => setFocusedField(null)}
           style={style.input}
           placeholder="exemp@email.com"
-          placeholderTextColor={color.placeholderLoginColor}
+          placeholderTextColor={colors.placeholder}
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
@@ -174,7 +170,7 @@ export default function Login() {
         <Lock
           style={style.icon}
           size={20}
-          color={focusedField === "password" ? "#155DFC" : "#99A1AF"}
+          color={focusedField === "password" ? colors.primaryAccent : colors.placeholder}
         />
 
         <TextInput
@@ -185,7 +181,7 @@ export default function Login() {
           secureTextEntry={true}
           autoCapitalize="none"
           autoCorrect={false}
-          placeholderTextColor={color.placeholderLoginColor}
+          placeholderTextColor={colors.placeholder}
           value={password}
           onChangeText={setPassword}
         />
@@ -197,8 +193,8 @@ export default function Login() {
           style={style.button}
           onPress={handleLogin}
         >
-          <Text style={{ color: "white" }}>Criar Conta</Text>
-          <ArrowRight size={15} color="#fff" />
+          <Text style={style.buttonText}>Criar Conta</Text>
+          <ArrowRight size={15} color={colors.white} />
         </TouchableOpacity>
       </View>
 
@@ -210,7 +206,7 @@ export default function Login() {
           alignItems: "center",
         }}
       >
-        <Text style={{ flex: 1, top: 239 }}>
+        <Text style={{ flex: 1, top: 239, color: colors.textPrimary }}>
           Já possui uma conta?
           <Link style={style.link} href={ROUTES.login}>
             Faça Login

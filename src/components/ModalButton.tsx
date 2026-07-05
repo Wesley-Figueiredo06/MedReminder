@@ -1,5 +1,6 @@
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
-import { color } from "../styles/styleSettings";
+import { useThemedStyles } from "../hooks/useThemedStyles";
+import type { ThemeColors } from "../constants/colors";
 
 type Variant = "primary" | "danger" | "ghost";
 
@@ -10,10 +11,43 @@ type Props = {
   disabled?: boolean;
 };
 
+const createStyles = (colors: ThemeColors) =>
+  StyleSheet.create({
+    base: {
+      width: "100%",
+      height: 50,
+      borderRadius: 10,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    disabled: {
+      opacity: 0.5,
+    },
+    textSolid: {
+      color: colors.white,
+      fontWeight: "600",
+    },
+    textGhost: {
+      color: colors.iconMuted,
+      fontWeight: "600",
+    },
+    primary: {
+      backgroundColor: colors.primary,
+    },
+    danger: {
+      backgroundColor: colors.danger,
+    },
+    ghost: {
+      backgroundColor: "transparent",
+    },
+  });
+
 export default function ModalButton({ label, onPress, variant = "primary", disabled = false }: Props) {
+  const styles = useThemedStyles(createStyles);
+
   return (
     <TouchableOpacity
-      style={[styles.base, variantStyles[variant], disabled && styles.disabled]}
+      style={[styles.base, styles[variant], disabled && styles.disabled]}
       onPress={onPress}
       disabled={disabled}
     >
@@ -21,36 +55,3 @@ export default function ModalButton({ label, onPress, variant = "primary", disab
     </TouchableOpacity>
   );
 }
-
-const styles = StyleSheet.create({
-  base: {
-    width: "100%",
-    height: 50,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  disabled: {
-    opacity: 0.5,
-  },
-  textSolid: {
-    color: "white",
-    fontWeight: "600",
-  },
-  textGhost: {
-    color: color.primaryIconColor,
-    fontWeight: "600",
-  },
-});
-
-const variantStyles = StyleSheet.create({
-  primary: {
-    backgroundColor: color.primaryColor,
-  },
-  danger: {
-    backgroundColor: color.dangerColor,
-  },
-  ghost: {
-    backgroundColor: "transparent",
-  },
-});

@@ -1,7 +1,8 @@
 import React from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
-
-const PLACEHOLDER_COLOR = "#99A1AF";
+import { useThemedStyles } from "../hooks/useThemedStyles";
+import { useTheme } from "../contexts/ThemeContext";
+import type { ThemeColors } from "../constants/colors";
 
 interface TextFieldProps {
   label: string;
@@ -14,38 +15,39 @@ interface TextFieldProps {
   multiline?: boolean;
 }
 
-const style = StyleSheet.create({
-  container: {
-    width: "100%",
-  },
-  label: {
-    fontWeight: "500",
-    marginBottom: 5,
-    color: "#374151",
-  },
-  inputBase: {
-    height: 50,
-    paddingHorizontal: 10,
-    borderRadius: 15,
-    backgroundColor: "#F9FAFB",
-    borderColor: "#99A1AF",
-    borderWidth: 0.5,
-    color: "#111827",
-  },
-  inputWithIcon: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-  },
-  inputFlex: {
-    flex: 1,
-  },
-  inputMultiline: {
-    height: 120,
-    textAlignVertical: "top",
-    paddingTop: 10,
-  },
-});
+const createStyle = (colors: ThemeColors) =>
+  StyleSheet.create({
+    container: {
+      width: "100%",
+    },
+    label: {
+      fontWeight: "500",
+      marginBottom: 5,
+      color: colors.textPrimary,
+    },
+    inputBase: {
+      height: 50,
+      paddingHorizontal: 10,
+      borderRadius: 15,
+      backgroundColor: colors.inputBackground,
+      borderColor: colors.placeholder,
+      borderWidth: 0.5,
+      color: colors.textPrimary,
+    },
+    inputWithIcon: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 4,
+    },
+    inputFlex: {
+      flex: 1,
+    },
+    inputMultiline: {
+      height: 120,
+      textAlignVertical: "top",
+      paddingTop: 10,
+    },
+  });
 
 export default function TextField({
   label,
@@ -57,11 +59,14 @@ export default function TextField({
   maxLength,
   multiline = false,
 }: TextFieldProps) {
+  const style = useThemedStyles(createStyle);
+  const { colors } = useTheme();
+
   const inputProps = {
     value,
     onChangeText,
     placeholder,
-    placeholderTextColor: PLACEHOLDER_COLOR,
+    placeholderTextColor: colors.placeholder,
     keyboardType,
     maxLength,
     multiline,

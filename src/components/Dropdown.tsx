@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Pressable, Text, View, ScrollView, StyleSheet } from "react-native";
+import { useThemedStyles } from "../hooks/useThemedStyles";
+import type { ThemeColors } from "../constants/colors";
 
 const BUTTON_HEIGHT = 50;
 const LIST_TOP_OFFSET = 54;
@@ -18,54 +20,55 @@ type DropdownProps = {
   placeholder?: string;
 };
 
-const style = StyleSheet.create({
-  container: {
-    position: "relative",
-    width: "100%",
-  },
-  button: {
-    height: BUTTON_HEIGHT,
-    paddingHorizontal: 10,
-    borderRadius: 15,
-    backgroundColor: "#F9FAFB",
-    borderColor: "#99A1AF",
-    borderWidth: 0.5,
-    justifyContent: "center",
-  },
-  placeholderText: {
-    color: "#99A1AF",
-  },
-  selectedText: {
-    color: "#111827",
-  },
-  overlay: {
-    position: "absolute",
-    top: OVERLAY_SPREAD,
-    left: OVERLAY_SPREAD,
-    right: OVERLAY_SPREAD,
-    bottom: OVERLAY_SPREAD,
-    zIndex: 15,
-  },
-  list: {
-    position: "absolute",
-    top: LIST_TOP_OFFSET,
-    left: 0,
-    right: 0,
-    zIndex: 20,
-    elevation: 6,
-    maxHeight: LIST_MAX_HEIGHT,
-    borderRadius: 15,
-    backgroundColor: "#F9FAFB",
-    borderColor: "#99A1AF",
-    borderWidth: 0.5,
-  },
-  item: {
-    padding: 10,
-  },
-  itemPressed: {
-    backgroundColor: "#F3F4F6",
-  },
-});
+const createStyle = (colors: ThemeColors) =>
+  StyleSheet.create({
+    container: {
+      position: "relative",
+      width: "100%",
+    },
+    button: {
+      height: BUTTON_HEIGHT,
+      paddingHorizontal: 10,
+      borderRadius: 15,
+      backgroundColor: colors.inputBackground,
+      borderColor: colors.placeholder,
+      borderWidth: 0.5,
+      justifyContent: "center",
+    },
+    placeholderText: {
+      color: colors.placeholder,
+    },
+    selectedText: {
+      color: colors.textPrimary,
+    },
+    overlay: {
+      position: "absolute",
+      top: OVERLAY_SPREAD,
+      left: OVERLAY_SPREAD,
+      right: OVERLAY_SPREAD,
+      bottom: OVERLAY_SPREAD,
+      zIndex: 15,
+    },
+    list: {
+      position: "absolute",
+      top: LIST_TOP_OFFSET,
+      left: 0,
+      right: 0,
+      zIndex: 20,
+      elevation: 6,
+      maxHeight: LIST_MAX_HEIGHT,
+      borderRadius: 15,
+      backgroundColor: colors.inputBackground,
+      borderColor: colors.placeholder,
+      borderWidth: 0.5,
+    },
+    item: {
+      padding: 10,
+    },
+    itemPressed: {
+      backgroundColor: colors.iconBackground,
+    },
+  });
 
 export default function Dropdown({
   value,
@@ -74,6 +77,7 @@ export default function Dropdown({
   placeholder = "Selecione a frequência",
 }: DropdownProps) {
   const [open, setOpen] = useState(false);
+  const style = useThemedStyles(createStyle);
 
   const selectedLabel = items.find((item) => item.value === value)?.label;
 

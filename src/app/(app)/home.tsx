@@ -10,7 +10,9 @@ import { Link, router } from "expo-router";
 
 import { useEffect, useState, useMemo } from "react";
 
-import { style } from "../../styles/styleHome";
+import { createHomeStyles } from "../../styles/styleHome";
+import { useThemedStyles } from "../../hooks/useThemedStyles";
+import { useTheme } from "../../contexts/ThemeContext";
 import { ROUTES } from "../../constants";
 import {
   Plus,
@@ -23,6 +25,9 @@ import {
 } from "lucide-react-native";
 
 export default function Home() {
+  const style = useThemedStyles(createHomeStyles);
+  const { colors } = useTheme();
+
   const formattedDate = useMemo(() => {
     const date = new Date();
 
@@ -49,10 +54,10 @@ export default function Home() {
       <View style={style.header}>
         <View>
           <Text style={style.titleContent}>Olá, Usuário!</Text>
-          <Text>{formattedDate}</Text>
+          <Text style={style.dateText}>{formattedDate}</Text>
         </View>
         <TouchableOpacity onPress={logoutClick} style={style.logoutIcon}>
-          <LogOut />
+          <LogOut color={colors.textPrimary} />
         </TouchableOpacity>
       </View>
       {/* Cards */}
@@ -60,23 +65,19 @@ export default function Home() {
       <View style={style.cards}>
         <View style={style.cardBlue}>
           <View style={style.bellIconConteiner}>
-            <Bell size={20} color="#588DFD" />
+            <Bell size={20} color={style.cardBlueIcon.color} />
           </View>
-          <Text style={{ fontWeight: "bold", fontSize: 25, color: "#1C398E" }}>
-            0
-          </Text>
-          <Text style={{ color: "#155DFC" }}>ATIVOS</Text>
+          <Text style={style.cardBlueNumber}>0</Text>
+          <Text style={style.cardBlueLabel}>ATIVOS</Text>
         </View>
 
         <View style={style.cardGreen}>
           <View style={style.pillIconConteiner}>
-            <Pill size={20} color="#0F9981" />
+            <Pill size={20} color={style.cardGreenIcon.color} />
           </View>
 
-          <Text style={{ fontWeight: "bold", fontSize: 25, color: "#004F3B" }}>
-            0
-          </Text>
-          <Text style={{ color: "#0F9981" }}>TOMADOS</Text>
+          <Text style={style.cardGreenNumber}>0</Text>
+          <Text style={style.cardGreenLabel}>TOMADOS</Text>
         </View>
       </View>
       {/* Checklist Medication */}
@@ -88,12 +89,14 @@ export default function Home() {
         <View>
           <View style={style.titleRow}>
             <Text style={style.titleContent}>Próximas Doses</Text>
-            <Text style={{ color: "#A5A9CA" }}>Total: {`${"0"}`}</Text>
+            <Text style={style.totalText}>Total: {`${"0"}`}</Text>
           </View>
 
           <View style={style.emptyBox}>
-            <ClipboardList size={35} />
-            <Text>Nenhum medicamento cadastrado ainda.</Text>
+            <ClipboardList size={35} color={colors.textPrimary} />
+            <Text style={style.emptyBoxText}>
+              Nenhum medicamento cadastrado ainda.
+            </Text>
           </View>
         </View>
       </ScrollView>
@@ -101,32 +104,22 @@ export default function Home() {
 
       <View style={style.footer}>
         <View>
-          <View style={{ alignItems: "center" }}>
-            <Calendar color="#155DFC" />
-            <Text style={{ color: "#155DFC" }}>Hoje</Text>
+          <View style={style.footerItemActive}>
+            <Calendar color={colors.primaryAccent} />
+            <Text style={style.footerLabelActive}>Hoje</Text>
           </View>
         </View>
 
         <View>
-          <TouchableOpacity
-            style={{
-              width: 43,
-              height: 43,
-              backgroundColor: "#155DFC",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 100,
-            }}
-            onPress={addMedication}
-          >
-            <Plus color="white" />
+          <TouchableOpacity style={style.addButton} onPress={addMedication}>
+            <Plus color={colors.white} />
           </TouchableOpacity>
         </View>
 
         <TouchableOpacity onPress={settings}>
-          <View style={{ alignItems: "center" }}>
-            <Settings color="#6A7282" />
-            <Text style={{ color: "#6A7282" }}>Ajustes</Text>
+          <View style={style.footerItem}>
+            <Settings color={colors.iconMuted} />
+            <Text style={style.footerLabelMuted}>Ajustes</Text>
           </View>
         </TouchableOpacity>
       </View>

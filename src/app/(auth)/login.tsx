@@ -23,9 +23,14 @@ import { mockAuth, validateMockCredentials } from "../../mocks/auth";
 import { ROUTES } from "../../constants";
 
 import { ArrowRight, Heart, Mail, Lock, Eye } from "lucide-react-native";
-import { style, color } from "../../styles/style";
+import { createAuthStyles } from "../../styles/style";
+import { useThemedStyles } from "../../hooks/useThemedStyles";
+import { useTheme } from "../../contexts/ThemeContext";
 
 export default function Login() {
+  const style = useThemedStyles(createAuthStyles);
+  const { colors } = useTheme();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -100,20 +105,11 @@ export default function Login() {
         }}
       >
         <Animated.View style={animatedStyle}>
-          <View
-            style={{
-              width: 80,
-              height: 80,
-              backgroundColor: "#155DFC",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 20,
-            }}
-          >
-            <Heart color="white" size={40} fill="white" absoluteStrokeWidth />
+          <View style={style.logoContainer}>
+            <Heart color={colors.white} size={40} fill={colors.white} absoluteStrokeWidth />
           </View>
         </Animated.View>
-        <Text style={style.tittle}>MedReminder</Text>
+        <Text style={style.tittle}>MedRemind</Text>
         <Text style={style.paragraph}>
           Sua saúde em boas mãos, um lembrete por vez.
         </Text>
@@ -130,14 +126,14 @@ export default function Login() {
         <Mail
           style={style.icon}
           size={20}
-          color={focusedField === "email" ? "#155DFC" : "#99A1AF"}
+          color={focusedField === "email" ? colors.primaryAccent : colors.placeholder}
         />
 
         <TextInput
           onFocus={() => setFocusedField("email")}
           onBlur={() => setFocusedField(null)}
           style={style.input}
-          placeholderTextColor={color.placeholderLoginColor}
+          placeholderTextColor={colors.placeholder}
           placeholder="exemp@email.com"
           keyboardType="email-address"
           autoCapitalize="none"
@@ -158,7 +154,7 @@ export default function Login() {
         <Lock
           style={style.icon}
           size={20}
-          color={focusedField === "password" ? "#155DFC" : "#99A1AF"}
+          color={focusedField === "password" ? colors.primaryAccent : colors.placeholder}
         />
 
         <TextInput
@@ -166,7 +162,7 @@ export default function Login() {
           onBlur={() => setFocusedField(null)}
           style={style.input}
           placeholder="••••••••"
-          placeholderTextColor={color.placeholderLoginColor}
+          placeholderTextColor={colors.placeholder}
           secureTextEntry={true}
           autoCapitalize="none"
           autoCorrect={false}
@@ -176,9 +172,7 @@ export default function Login() {
       </View>
 
       {errorMessage ? (
-        <Text style={{ color: "#E7000B", marginBottom: 10 }}>
-          {errorMessage}
-        </Text>
+        <Text style={style.errorText}>{errorMessage}</Text>
       ) : null}
 
       <View>
@@ -187,8 +181,8 @@ export default function Login() {
           style={style.button}
           onPress={handleLogin}
         >
-          <Text style={{ color: "white" }}>Entrar</Text>
-          <ArrowRight size={15} color="#fff" />
+          <Text style={style.buttonText}>Entrar</Text>
+          <ArrowRight size={15} color={colors.white} />
         </TouchableOpacity>
       </View>
 
@@ -200,7 +194,7 @@ export default function Login() {
           alignItems: "center",
         }}
       >
-        <Text>
+        <Text style={{ color: colors.textPrimary }}>
           Não tem uma conta?{" "}
           <Link style={style.link} href={ROUTES.register}>
             Cadastre-se
