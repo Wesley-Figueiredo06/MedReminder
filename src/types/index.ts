@@ -1,3 +1,5 @@
+export * from "./feedback";
+
 export type DoseFrequency =
   | "1x ao dia"
   | "2x ao dia"
