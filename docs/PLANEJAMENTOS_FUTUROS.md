@@ -47,5 +47,19 @@
 - "Perguntas Frequentes", "Falar com Suporte" e "Guia de Uso" ainda sem ação definida.
 - Decidir: telas próprias, links externos ou conteúdo no próprio modal.
 
+### 4. Próximas Doses — evoluções futuras
+- Hoje `src/mocks/medications.ts` + `useUpcomingDoses` são um mock em memória (perdem
+  estado ao recarregar o app). Substituir por `medicationService.ts` (já stub em
+  `src/services/index.ts`) e um `useMedications` real (já stub em `src/hooks/index.ts`)
+  consultando o Supabase.
+- O botão "Tomar" no `MedicationDoseCard` é só visual. Implementar a ação real:
+  registrar um `DoseRecord` e atualizar o contador "TOMADOS" no card verde da Home.
+- `addMedication.tsx` não tem campo de forma farmacêutica (comprimido/cápsula/gota/
+  etc.), então toda dose salva hoje usa `iconType: "pill"` fixo. Adicionar esse campo
+  ao formulário para determinar o `iconType` corretamente.
+- A "próxima dose" hoje é só o horário cadastrado no formulário. Calcular de fato a
+  próxima dose a partir do horário + frequência (ex: próximo horário do dia ainda não
+  tomado), em vez de sempre exibir o horário de cadastro.
+
 ## ✅ Concluídos
 (vazio por enquanto)

@@ -16,12 +16,16 @@ import { useTheme } from "../../contexts/ThemeContext";
 import Dropdown from "../../components/Dropdown";
 import TextField from "../../components/TextField";
 import { ROUTES } from "../../constants";
+import { addUpcomingDose } from "../../mocks/medications";
+import type { UpcomingDose } from "../../types";
 
 export default function NewMedication() {
   const style = useThemedStyles(createAuthStyles);
   const { colors } = useTheme();
 
   const [open, setOpen] = useState(false);
+  const [medicationName, setMedicationName] = useState("");
+  const [dosage, setDosage] = useState("");
   const [value, setValue] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
@@ -37,6 +41,22 @@ export default function NewMedication() {
   ]);
 
   function handleGoHome() {
+    router.replace(ROUTES.home);
+  }
+
+  function handleSaveMedication() {
+    const frequencyLabel = items.find((item) => item.value === value)?.label ?? "";
+
+    const dose: UpcomingDose = {
+      id: String(Date.now()),
+      medicationName,
+      dosageLabel: dosage,
+      frequencyLabel,
+      time,
+      iconType: "pill",
+    };
+
+    addUpcomingDose(dose);
     router.replace(ROUTES.home);
   }
 
@@ -99,10 +119,17 @@ export default function NewMedication() {
       <TextField
         label="Nome do Medicamento"
         placeholder="Ex: Paracetamol"
+        value={medicationName}
+        onChangeText={setMedicationName}
         icon={<Pill size={20} color={colors.placeholder} />}
       />
 
-      <TextField label="Dosagem" placeholder="Ex: 500mg" />
+      <TextField
+        label="Dosagem"
+        placeholder="Ex: 500mg"
+        value={dosage}
+        onChangeText={setDosage}
+      />
 
       <View style={style.fieldRow}>
         <View style={style.fieldRowItem}>
@@ -158,7 +185,7 @@ export default function NewMedication() {
       </View>
 
       <View style={style.saveButtonWrapper}>
-        <TouchableOpacity style={style.saveButton} onPress={handleGoHome}>
+        <TouchableOpacity style={style.saveButton} onPress={handleSaveMedication}>
           <Text style={style.saveButtonText}>Salvar Medicamento</Text>
         </TouchableOpacity>
       </View>

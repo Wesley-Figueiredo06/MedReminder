@@ -125,4 +125,61 @@ export const createHomeStyles = (colors: ThemeColors) =>
       justifyContent: "center",
       borderRadius: 100,
     },
+
+    doseList: {
+      gap: 10,
+    },
+    doseListScroll: {
+      height: 260,
+    },
+
+    doseCard: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 12,
+      padding: 15,
+      backgroundColor: colors.surface,
+      borderColor: colors.border,
+      borderWidth: 1,
+      borderRadius: 12,
+    },
+
+    doseIconBox: {
+      width: 48,
+      height: 48,
+      borderRadius: 12,
+      borderWidth: 1,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    doseIconBoxPill: {
+      backgroundColor: colors.pillBackground,
+      borderColor: colors.pillBorder,
+    },
+    doseIconBoxDrop: {
+      backgroundColor: colors.infoBackground,
+      borderColor: colors.infoBorder,
+    },
+
+    doseInfo: {
+      flex: 1,
+    },
+    doseName: {
+      fontWeight: "bold",
+      color: colors.textPrimary,
+    },
+    doseSubtitle: {
+      color: colors.secondaryText,
+    },
+
+    takeButton: {
+      paddingVertical: 8,
+      paddingHorizontal: 14,
+      borderRadius: 8,
+      backgroundColor: colors.primary,
+    },
+    takeButtonText: {
+      fontWeight: "600",
+      color: colors.white,
+    },
   });

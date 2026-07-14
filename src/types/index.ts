@@ -33,3 +33,12 @@ export interface DoseRecord {
   takenAt: string;
   scheduledAt: string;
 }
+
+export interface UpcomingDose {
+  id: string;
+  medicationName: string;
+  dosageLabel: string;
+  frequencyLabel: string;
+  time: string;
+  iconType: "pill" | "drop";
+}
