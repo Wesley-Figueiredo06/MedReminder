@@ -19,9 +19,9 @@ export default function MedicationDoseCard({ dose }: MedicationDoseCardProps) {
     <View style={style.doseCard}>
       <View style={[style.doseIconBox, isPill ? style.doseIconBoxPill : style.doseIconBoxDrop]}>
         {isPill ? (
-          <Pill size={22} color={colors.success} />
+          <Pill size={22} color={colors.iconActive} />
         ) : (
-          <Droplet size={22} color={colors.infoText} />
+          <Droplet size={22} color={colors.primary} />
         )}
       </View>
 

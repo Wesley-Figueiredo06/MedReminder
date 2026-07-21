@@ -8,6 +8,7 @@ export const createHomeStyles = (colors: ThemeColors) =>
       backgroundColor: colors.background,
       justifyContent: "space-between",
       paddingVertical: 20,
+      paddingHorizontal: 16,
     },
 
     titleContent: { fontWeight: "bold", fontSize: 20, color: colors.textPrimary },
@@ -15,7 +16,6 @@ export const createHomeStyles = (colors: ThemeColors) =>
     header: {
       flexDirection: "row",
       justifyContent: "space-between",
-      paddingHorizontal: 10,
       paddingBottom: 10,
       marginBottom: 25,
     },
@@ -131,6 +131,9 @@ export const createHomeStyles = (colors: ThemeColors) =>
     },
     doseListScroll: {
       height: 260,
+      backgroundColor: colors.inputBackground,
+      borderRadius: 12,
+      padding: 8,
     },
 
     doseCard: {
@@ -153,8 +156,8 @@ export const createHomeStyles = (colors: ThemeColors) =>
       justifyContent: "center",
     },
     doseIconBoxPill: {
-      backgroundColor: colors.pillBackground,
-      borderColor: colors.pillBorder,
+      backgroundColor: colors.surface,
+      borderColor: colors.border,
     },
     doseIconBoxDrop: {
       backgroundColor: colors.infoBackground,
