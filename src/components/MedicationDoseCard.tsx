@@ -7,9 +7,10 @@ import type { UpcomingDose } from "../types";
 
 interface MedicationDoseCardProps {
   dose: UpcomingDose;
+  onPress: () => void;
 }
 
-export default function MedicationDoseCard({ dose }: MedicationDoseCardProps) {
+export default function MedicationDoseCard({ dose, onPress }: MedicationDoseCardProps) {
   const style = useThemedStyles(createHomeStyles);
   const { colors } = useTheme();
 
@@ -25,12 +26,12 @@ export default function MedicationDoseCard({ dose }: MedicationDoseCardProps) {
         )}
       </View>
 
-      <View style={style.doseInfo}>
+      <TouchableOpacity style={style.doseInfo} onPress={onPress}>
         <Text style={style.doseName}>{dose.medicationName}</Text>
         <Text style={style.doseSubtitle}>
           {dose.dosageLabel} • {dose.frequencyLabel} • {dose.time}
         </Text>
-      </View>
+      </TouchableOpacity>
 
       <TouchableOpacity style={style.takeButton}>
         <Text style={style.takeButtonText}>Tomar</Text>

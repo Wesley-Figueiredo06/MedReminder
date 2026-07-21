@@ -41,4 +41,5 @@ export interface UpcomingDose {
   frequencyLabel: string;
   time: string;
   iconType: "pill" | "drop";
+  instructions?: string;
 }

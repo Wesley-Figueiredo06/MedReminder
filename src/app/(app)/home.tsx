@@ -16,6 +16,8 @@ import { useTheme } from "../../contexts/ThemeContext";
 import { useUpcomingDoses } from "../../hooks/useUpcomingDoses";
 import { ROUTES } from "../../constants";
 import MedicationDoseCard from "../../components/MedicationDoseCard";
+import MedicationDetailsModal from "../../components/MedicationDetailsModal";
+import type { UpcomingDose } from "../../types";
 import {
   Plus,
   Calendar,
@@ -30,6 +32,11 @@ export default function Home() {
   const style = useThemedStyles(createHomeStyles);
   const { colors } = useTheme();
   const { doses } = useUpcomingDoses();
+  const [selectedDose, setSelectedDose] = useState<UpcomingDose | null>(null);
+
+  function openDoseDetails(dose: UpcomingDose) {
+    setSelectedDose(dose);
+  }
 
   const formattedDate = useMemo(() => {
     const date = new Date();
@@ -105,7 +112,11 @@ export default function Home() {
           ) : doses.length < 3 ? (
             <View style={style.doseList}>
               {doses.map((dose) => (
-                <MedicationDoseCard key={dose.id} dose={dose} />
+                <MedicationDoseCard
+                  key={dose.id}
+                  dose={dose}
+                  onPress={() => openDoseDetails(dose)}
+                />
               ))}
             </View>
           ) : (
@@ -116,7 +127,11 @@ export default function Home() {
               nestedScrollEnabled
             >
               {doses.map((dose) => (
-                <MedicationDoseCard key={dose.id} dose={dose} />
+                <MedicationDoseCard
+                  key={dose.id}
+                  dose={dose}
+                  onPress={() => openDoseDetails(dose)}
+                />
               ))}
             </ScrollView>
           )}
@@ -145,6 +160,12 @@ export default function Home() {
           </View>
         </TouchableOpacity>
       </View>
+
+      <MedicationDetailsModal
+        visible={!!selectedDose}
+        dose={selectedDose}
+        onClose={() => setSelectedDose(null)}
+      />
     </View>
   );
 }

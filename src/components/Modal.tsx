@@ -7,7 +7,7 @@ import type { ThemeColors } from "../constants/colors";
 
 type Props = {
   visible: boolean;
-  title: string;
+  title: React.ReactNode;
   onClose: () => void;
   children: React.ReactNode;
 };
@@ -49,7 +49,11 @@ export default function Modal({ visible, title, onClose, children }: Props) {
       <View style={styles.overlay}>
         <View style={styles.card}>
           <View style={styles.header}>
-            <Text style={styles.title}>{title}</Text>
+            {typeof title === "string" ? (
+              <Text style={styles.title}>{title}</Text>
+            ) : (
+              title
+            )}
             <TouchableOpacity onPress={onClose}>
               <X size={22} color={colors.iconMuted} />
             </TouchableOpacity>
