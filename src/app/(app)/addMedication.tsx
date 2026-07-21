@@ -29,6 +29,7 @@ export default function NewMedication() {
   const [value, setValue] = useState("");
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
+  const [observations, setObservations] = useState("");
 
   const [items, setItems] = useState([
     { label: "1x ao dia", value: "1x" },
@@ -54,6 +55,7 @@ export default function NewMedication() {
       frequencyLabel,
       time,
       iconType: "pill",
+      instructions: observations || undefined,
     };
 
     addUpcomingDose(dose);
@@ -170,6 +172,8 @@ export default function NewMedication() {
       <TextField
         label="Observações (Opcional)"
         placeholder="Ex: Tomar após as refeições"
+        value={observations}
+        onChangeText={setObservations}
         multiline
       />
 
