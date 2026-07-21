@@ -167,7 +167,7 @@ export default function MedicationDetailsModal({
         <View style={styles.instructionsBlock}>
           <View style={styles.detailLabelRow}>
             <Info size={16} color={colors.secondaryText} />
-            <Text style={styles.detailLabel}>Instruções</Text>
+            <Text style={styles.detailLabel}>Instruções/Observações</Text>
           </View>
           <Text style={styles.instructionsText}>{dose.instructions}</Text>
         </View>
