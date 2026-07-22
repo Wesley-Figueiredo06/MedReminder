@@ -79,9 +79,20 @@
   trocar o corpo de `updateDose`, sem alterar nenhum consumidor.
 
 ### 5. Notificações locais de dose
+> A notificação é o núcleo do produto — confiabilidade aqui importa mais que qualquer outra feature.
 - Instalar `expo-notifications` (ainda não é dependência do projeto).
-- Agendar notificação ao salvar medicamento; cancelar ao editar/excluir.
+- **Limitação de desenvolvimento**: notificações locais não funcionam no Expo Go
+  (desde o SDK 53) — exige development build via EAS para testar de verdade.
+- Pedir permissão de notificação no momento certo: ao salvar o primeiro
+  medicamento (com contexto), não na abertura do app.
+- Android 12+: usar alarmes exatos (`SCHEDULE_EXACT_ALARM`) — notificação de
+  remédio atrasada por otimização de bateria é produto quebrado.
+- Fabricantes (Xiaomi, Samsung etc.) matam apps em background: exibir dica na
+  UI orientando a desativar a otimização de bateria para o app.
+- Reagendar notificações ao: salvar, editar e excluir medicamento, e ao
+  reiniciar o aparelho (boot).
 - Respeitar o switch "Notificações" dos Ajustes (ver item 3).
+- Extra de baixo custo: ação "adiar 10 min" na própria notificação.
 
 ### 6. Refatorações / dívidas técnicas
 - **Frequências duplicadas**: o dropdown do `addMedication` define lista inline
@@ -93,6 +104,10 @@
   corresponde ao diretório `src/`. Corrigir e migrar imports gradualmente.
 - **Export deprecated**: remover `export const colors = lightColors` em
   `Colors.ts` ao fim da Fase 4 (migração completa para `useTheme()`).
+- **Pickers nativos**: substituir as máscaras de texto de data e horário em
+  `addMedication.tsx` por `@react-native-community/datetimepicker` — melhor UX
+  (2 toques em vez de digitação) e elimina as validações de formato do item 2,
+  restando só as de obrigatoriedade e "data não no passado".
 
 ---
 
@@ -160,6 +175,45 @@
   trocar o corpo de `onSave`/`updateDose` por uma chamada a
   `medicationService.updateMedication` (PUT), sem precisar mudar a assinatura
   usada pelos componentes.
+
+---
+
+## 📱 Produto e Publicação
+
+### 10. Acessibilidade (público 60+)
+> Quem mais usa lembrete de remédio tem 60+. Acessibilidade aqui não é extra.
+- Respeitar o tamanho de fonte do sistema: testar com fonte grande ativa no
+  Android/iOS — alturas fixas atuais (ex: `infoBox` com `height: 80`) quebram.
+- Alvos de toque com mínimo de 44pt em botões e cards interativos.
+- Fontes um pouco maiores e alto contraste nos textos principais.
+- `accessibilityLabel` / `accessibilityRole` nos botões de ícone (logout,
+  voltar, Tomar, Editar, Excluir).
+- Feedback de ação: toast/snackbar de confirmação ao salvar medicamento
+  ("Medicamento salvo") — hoje o save não confirma nada.
+
+### 11. Privacidade e LGPD
+> Dados de medicação são dados sensíveis de saúde pela LGPD.
+- Criar política de privacidade em URL pública (pode ser página simples no
+  GitHub Pages) — obrigatória para o Play Console.
+- Espelhar a política no modal "Privacidade" já existente no app.
+- Descrição da loja sem claims médicos: "ajuda a lembrar" sim; "melhora sua
+  saúde/tratamento" não (risco de enquadramento em categoria regulada).
+- O app deve funcionar offline-first: cadastro e notificação locais primeiro,
+  Supabase como sincronização/backup por cima. Remédio não pode depender de rede.
+
+### 12. Publicação (Play Store primeiro)
+- Conta de desenvolvedor Google Play: US$25 (taxa única).
+- Contas pessoais criadas após 13/11/2023: teste fechado obrigatório com
+  mínimo de 12 testadores por 14 dias contínuos antes de solicitar produção;
+  depois, formulário de produção + análise do Google (3–7 dias úteis).
+  Planejar ~1 mês entre "app pronto" e "público".
+- Preencher formulário Data Safety declarando coleta de dados de saúde.
+- Pipeline EAS já existe (projectId no app.json, versionCode 3) — falta:
+  screenshots, descrição, ícone em alta resolução, classificação etária.
+- App Store (iOS): fase 2 — US$99/ano, exige bloco `ios` com
+  `bundleIdentifier` no app.json (hoje inexistente).
+- Web própria: apenas como vitrine/landing com link pra loja (notificação
+  confiável em web mobile é fraca; não é canal principal).
 
 ---
 
