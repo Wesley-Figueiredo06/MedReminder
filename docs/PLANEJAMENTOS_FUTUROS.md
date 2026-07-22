@@ -37,12 +37,14 @@
   data completa e não no passado.
   - Bug relacionado: o campo "Observações (Opcional)" não tem estado — está
     desconectado do save.
+- **Editar Medicamento** (`MedicationEditForm.tsx`, dentro do modo de edição do
+  `MedicationDetailsModal.tsx`): mesmo gap do formulário de cadastro — hoje dá
+  pra salvar com Nome/Dosagem/Horário vazios ou horário incompleto.
 - **Feedback**: mensagem não vazia, tamanho mínimo/máximo (espelhar o `CHECK`
   do banco: 1–1000 caracteres).
 
 ### 3. Ações de botões pendentes (localização)
 > Lista única de todo botão/interação sem ação real, para fácil localização.
-- `MedicationDetailsModal.tsx` → botão **"Editar"** (sem ação).
 - `MedicationDetailsModal.tsx` → botão **"Excluir"** (sem ação; exigirá
   confirmação antes de excluir).
 - `MedicationDoseCard.tsx` → botão **"Tomar"** é só visual. Implementar a ação
@@ -70,6 +72,11 @@
   ainda não tomado), em vez de sempre exibir o horário de cadastro.
 - Ao buscar detalhes do medicamento, usar algo como `getMedicationById` no
   Supabase, evitando trazer `instructions` na query de listagem.
+- A edição de medicamento hoje persiste só no mock em memória, via
+  `updateUpcomingDose` (`src/mocks/medications.ts`) e `updateDose`
+  (`useUpcomingDoses`). A assinatura de `updateDose` já é assíncrona de
+  propósito — quando `medicationService.updateMedication` existir, basta
+  trocar o corpo de `updateDose`, sem alterar nenhum consumidor.
 
 ### 5. Notificações locais de dose
 - Instalar `expo-notifications` (ainda não é dependência do projeto).
@@ -146,8 +153,39 @@
   instruções por medicamento ou instruções reutilizáveis entre eles.
 - Aplicar o mesmo padrão do feedback: RLS por `user_id`, constraints de
   validação (item 7), tradução snake_case ↔ camelCase no service.
+- O modo de edição do `MedicationDetailsModal.tsx` (`MedicationEditForm.tsx` +
+  `useMedicationEditForm`) já salva via `onSave`, mas hoje isso só persiste no
+  mock em memória (`updateUpcomingDose` em `src/mocks/medications.ts` e
+  `updateDose` em `useUpcomingDoses`). Quando a tabela `medications` existir,
+  trocar o corpo de `onSave`/`updateDose` por uma chamada a
+  `medicationService.updateMedication` (PUT), sem precisar mudar a assinatura
+  usada pelos componentes.
 
 ---
 
 # ✅ Concluídos
-(vazio por enquanto)
+
+### 21/07/2026 — Modo de edição no `MedicationDetailsModal`
+- Modo de edição dentro do `MedicationDetailsModal.tsx` — mesmo modal, view
+  interna alternando entre `"details"` e `"edit"` com transição *slide* via
+  `Animated` nativo (hook `useSlideTransition`).
+- Novos componentes: `MedicationDetailsView` (extraído do modal) e
+  `MedicationEditForm`.
+- Novo hook `useMedicationEditForm` (estado do formulário separado da UI, com
+  `reset`).
+- Máscara de horário extraída para `utils/formatTimeInput.ts`, reutilizada por
+  `addMedication.tsx` e pelo formulário de edição (DRY).
+- `updateUpcomingDose` no mock + `updateDose` assíncrono no
+  `useUpcomingDoses` (assinatura já preparada para Supabase).
+- `home.tsx` passou a derivar `selectedDose` da lista via `selectedDoseId`
+  (fonte única de verdade — o modal reflete automaticamente a dose
+  atualizada).
+
+**Decisões/lições de layout registradas para referência futura:**
+- Renderizar apenas o *pane* ativo por vez, em vez de manter dois panes lado a
+  lado com altura animada (a abordagem medida via `onLayout` + interpolação de
+  height foi descartada por fragilidade — causava stretch ou colapso de
+  altura).
+- `ModalButton` mantém `width: "100%"` (correto para layouts em coluna); em
+  *rows*, o consumidor envolve cada botão em uma `View` com `flex: 1` (padrão
+  aplicado no footer do modal).
