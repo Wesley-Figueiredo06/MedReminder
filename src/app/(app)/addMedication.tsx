@@ -17,6 +17,7 @@ import Dropdown from "../../components/Dropdown";
 import TextField from "../../components/TextField";
 import { ROUTES } from "../../constants";
 import { addUpcomingDose } from "../../mocks/medications";
+import { formatTimeInput } from "../../utils/formatTimeInput";
 import type { UpcomingDose } from "../../types";
 
 export default function NewMedication() {
@@ -86,29 +87,6 @@ export default function NewMedication() {
     setDate(formatted);
   }
 
-  function handleTimeChange(value: string) {
-    let numbers = value.replace(/\D/g, "");
-
-    numbers = numbers.slice(0, 4);
-
-    let hours = numbers.slice(0, 2);
-    let minutes = numbers.slice(2, 4);
-
-    if (hours.length === 2 && Number(hours) > 23) {
-      hours = "23";
-    }
-    if (minutes.length === 2 && Number(minutes) > 59) {
-      minutes = "59";
-    }
-
-    let formatted = hours;
-
-    if (numbers.length > 2) {
-      formatted += ":" + minutes;
-    }
-    setTime(formatted);
-  }
-
   return (
     <View style={style.formConteiner}>
       <View style={style.headerRow}>
@@ -152,7 +130,7 @@ export default function NewMedication() {
           <TextField
             label="Horário Inicial"
             value={time}
-            onChangeText={handleTimeChange}
+            onChangeText={(text) => setTime(formatTimeInput(text))}
             placeholder="08:00"
             keyboardType="numeric"
             maxLength={5}

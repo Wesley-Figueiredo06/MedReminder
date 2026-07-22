@@ -31,11 +31,16 @@ import {
 export default function Home() {
   const style = useThemedStyles(createHomeStyles);
   const { colors } = useTheme();
-  const { doses } = useUpcomingDoses();
-  const [selectedDose, setSelectedDose] = useState<UpcomingDose | null>(null);
+  const { doses, updateDose } = useUpcomingDoses();
+  const [selectedDoseId, setSelectedDoseId] = useState<string | null>(null);
+
+  const selectedDose = useMemo(
+    () => doses.find((dose) => dose.id === selectedDoseId) ?? null,
+    [doses, selectedDoseId],
+  );
 
   function openDoseDetails(dose: UpcomingDose) {
-    setSelectedDose(dose);
+    setSelectedDoseId(dose.id);
   }
 
   const formattedDate = useMemo(() => {
@@ -164,7 +169,8 @@ export default function Home() {
       <MedicationDetailsModal
         visible={!!selectedDose}
         dose={selectedDose}
-        onClose={() => setSelectedDose(null)}
+        onClose={() => setSelectedDoseId(null)}
+        onSave={updateDose}
       />
     </View>
   );

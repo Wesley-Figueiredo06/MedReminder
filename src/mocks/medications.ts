@@ -36,3 +36,10 @@ export function getUpcomingDoses(): UpcomingDose[] {
 export function addUpcomingDose(dose: UpcomingDose): void {
   doses = [dose, ...doses].slice(0, MAX_UPCOMING_DOSES);
 }
+
+export function updateUpcomingDose(
+  id: string,
+  changes: Partial<Omit<UpcomingDose, "id">>,
+): void {
+  doses = doses.map((dose) => (dose.id === id ? { ...dose, ...changes } : dose));
+}
